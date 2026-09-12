@@ -1,0 +1,191 @@
+# Generated from infra/telegram-bot/scripts/collect_work.py; do not edit inline Python.
+name: Sync employee work board
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, closed, synchronize, edited, review_requested, review_request_removed]
+  schedule:
+    - cron: '7 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+  id-token: write
+concurrency:
+  group: work-board-feed
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Send minimal task and development activity records
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORK_BOARD_URL: https://morpheus.xiaogmy.workers.dev/work/feed
+          SYNC_TASKS: 'false'
+        shell: python
+        run: |
+          """Minimal read-only source collector. Embedded in trusted main Actions workflows."""
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          PR_QUERY = """query($owner:String!,$repo:String!,$cursor:String) {
+            repository(owner:$owner,name:$repo) {
+              pullRequests(first:50,after:$cursor,orderBy:{field:UPDATED_AT,direction:DESC}) {
+                pageInfo {hasNextPage endCursor}
+                nodes {
+                  number title createdAt updatedAt mergedAt
+                  author {__typename login ... on User {databaseId}}
+                  mergedBy {__typename login ... on User {databaseId}}
+                  reviews(last:100) {
+                    pageInfo {hasPreviousPage}
+                    nodes {databaseId submittedAt state author {__typename login ... on User {databaseId}}}
+                  }
+                }
+              }
+            }
+          }"""
+
+          def short_title(text):
+              # Match the receiver's JavaScript UTF-16 length limit, including emoji.
+              return text.encode("utf-16-le")[:400].decode("utf-16-le", errors="ignore")
+
+          def collect(read, repo, sync_tasks=True, now=None):
+              now = now or datetime.now(timezone.utc)
+              since = now - timedelta(days=90)
+              since_iso = since.isoformat().replace("+00:00", "Z")
+              tasks, activities = [], {}
+              truncated = activity_truncated = False
+              unattributed = 0
+
+              def recent(at):
+                  return bool(at) and since <= datetime.fromisoformat(at.replace("Z", "+00:00")) <= now + timedelta(minutes=1)
+
+              def record(event_id, actor, kind, at, **target):
+                  nonlocal unattributed
+                  if not recent(at):
+                      return
+                  if actor is None:
+                      unattributed += 1
+                      return
+                  if actor.get("type", actor.get("__typename")) != "User":
+                      return
+                  actor_id = actor.get("databaseId", actor.get("id"))
+                  if not isinstance(actor_id, int) or actor_id <= 0:
+                      unattributed += 1
+                      return
+                  activities[event_id] = {"id": event_id, "actorId": actor_id, "actorLogin": actor["login"], "kind": kind, "at": at, **target}
+
+              if sync_tasks:
+                  for page in range(1, 11):
+                      rows = read(f"/repos/{repo}/issues?state=all&sort=updated&direction=desc&per_page=100&page={page}")
+                      for row in rows:
+                          if "pull_request" in row:
+                              continue
+                          record(f"opened:{row['number']}", row.get("user"), "opened", row.get("created_at"), issueNumber=row["number"])
+                          tasks.append({"number": row["number"], "title": row["title"], "state": row["state"], "stateReason": row.get("state_reason"), "labels": [x["name"] for x in row["labels"]], "assignees": [{"id": x["id"], "login": x["login"]} for x in row["assignees"]], "updatedAt": row["updated_at"]})
+                      if len(rows) < 100:
+                          break
+                      if page == 10:
+                          truncated = True
+                  activity_truncated = truncated
+                  kinds = {"closed", "reopened", "assigned", "unassigned", "labeled", "unlabeled", "renamed", "milestoned", "demilestoned"}
+                  for page in range(1, 6):
+                      rows = read(f"/repos/{repo}/issues/events?per_page=100&page={page}")
+                      for event in rows:
+                          issue = event.get("issue") or {}
+                          if "pull_request" not in issue and issue.get("number") and event.get("event") in kinds:
+                              record(f"event:{event['id']}", event.get("actor"), event["event"], event.get("created_at"), issueNumber=issue["number"])
+                      if len(rows) < 100:
+                          break
+                      if page == 5:
+                          activity_truncated = True
+
+              owner, name = repo.split("/")
+              cursor = None
+              for page in range(6):
+                  result = read("/graphql", {"query": PR_QUERY, "variables": {"owner": owner, "repo": name, "cursor": cursor}})
+                  if result.get("errors"):
+                      raise ValueError("Development activity query failed")
+                  connection = result["data"]["repository"]["pullRequests"]
+                  for pr in connection["nodes"]:
+                      title = short_title(pr["title"].strip() or f"PR #{pr['number']}")
+                      target = {"issueNumber": pr["number"], "title": title}
+                      record(f"pr_opened:{pr['number']}", pr.get("author"), "pr_opened", pr["createdAt"], **target)
+                      record(f"pr_merged:{pr['number']}", pr.get("mergedBy"), "pr_merged", pr["mergedAt"], **target)
+                      reviews = pr["reviews"]
+                      activity_truncated |= reviews["pageInfo"]["hasPreviousPage"]
+                      for review in reviews["nodes"]:
+                          if review["state"] != "PENDING":
+                              record(f"pr_reviewed:{review['databaseId']}", review.get("author"), "pr_reviewed", review["submittedAt"], **target)
+                  info = connection["pageInfo"]
+                  if not info["hasNextPage"] or connection["nodes"] and not recent(connection["nodes"][-1]["updatedAt"]):
+                      break
+                  cursor = info["endCursor"]
+                  if page == 5:
+                      activity_truncated = True
+
+              for page in range(1, 11):
+                  try:
+                      rows = read(f"/repos/{repo}/commits?since={urllib.parse.quote(since_iso)}&per_page=100&page={page}")
+                  except urllib.error.HTTPError as error:
+                      if error.code == 409:  # Empty repository.
+                          break
+                      raise
+                  for commit in rows:
+                      if len(commit.get("parents", [])) > 1:  # Merge action has its own PR event.
+                          continue
+                      title = short_title((commit["commit"]["message"].splitlines() or [""])[0].strip() or commit["sha"][:7])
+                      record("commit:" + commit["sha"], commit.get("author"), "commit", commit["commit"]["author"]["date"], sha=commit["sha"], title=title)
+                  if len(rows) < 100:
+                      break
+                  if page == 10:
+                      activity_truncated = True
+
+              events = sorted(activities.values(), key=lambda e: e["at"], reverse=True)
+              activity_truncated |= len(events) > 4000
+              payload = {"tasks": tasks, "truncated": truncated, "activities": events[:4000], "activitySince": since_iso, "activityTruncated": activity_truncated, "activityCode": True, "activityUnattributed": unattributed}
+              # Preserve recent events when the source reaches the receiver's 1 MiB limit.
+              while len(json.dumps(payload, ensure_ascii=False).encode()) > 950000 and payload["activities"]:
+                  payload["activityTruncated"] = True
+                  payload["activities"] = payload["activities"][:int(len(payload["activities"]) * 0.8)]
+              return payload
+
+          def request(url, bearer, data=None):
+              headers = {"Authorization": "Bearer " + bearer, "Accept": "application/vnd.github+json", "User-Agent": "morpheus-work-feed", "X-GitHub-Api-Version": "2022-11-28"}
+              if data is not None:
+                  headers["Content-Type"] = "application/json"
+                  data = json.dumps(data, ensure_ascii=False).encode()
+              req = urllib.request.Request(url, data=data, headers=headers)
+              with urllib.request.urlopen(req, timeout=30) as res:
+                  return json.load(res)
+
+          def main():
+              try:
+                  repo = os.environ["GITHUB_REPOSITORY"]
+                  payload = collect(lambda path, data=None: request("https://api.github.com" + path, os.environ["GH_TOKEN"], data), repo, os.environ.get("SYNC_TASKS") == "true")
+                  audience = os.environ["WORK_BOARD_URL"]
+                  oidc_url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"] + "&audience=" + urllib.parse.quote(audience, safe="")
+                  identity = request(oidc_url, os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"])["value"]
+                  result = request(audience, identity, payload)
+                  if not result.get("ok"):
+                      raise ValueError("Snapshot rejected")
+                  print(f"Work sync complete: {len(payload['tasks'])} tasks, {len(payload['activities'])} activity records, truncated={payload['activityTruncated']}.")
+              except urllib.error.HTTPError as error:
+                  print("Work sync failed: HTTP " + str(error.code), file=sys.stderr)
+                  sys.exit(1)
+              except Exception as error:
+                  print("Work sync failed: " + type(error).__name__, file=sys.stderr)
+                  sys.exit(1)
+
+          if __name__ == "__main__":
+              main()
