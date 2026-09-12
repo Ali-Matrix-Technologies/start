@@ -1,148 +1,77 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<title>Ali Matrix 新人第一天</title>
-<meta name="description" content="从零开始：注册账号、装工具、进群、让 AI 带你做。每一步都有怎么确认和不行找谁。">
-<style>
-:root{--bg:#fff;--fg:#1d1d1f;--muted:#6e6e73;--card:#f5f5f7;--line:#e5e5ea;--accent:#2563eb;--accent-fg:#fff;--ok:#16a34a;--code:#0f172a;--code-fg:#e2e8f0}
-@media (prefers-color-scheme:dark){:root{--bg:#0b0b0d;--fg:#f2f2f4;--muted:#9a9aa3;--card:#17171a;--line:#2a2a2f;--accent:#3b82f6;--code:#0a0f1c;--code-fg:#e2e8f0}}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif}
-a{color:var(--accent);word-break:break-all}
-main{max-width:720px;margin:0 auto;padding:16px 16px calc(40px + env(safe-area-inset-bottom))}
-header{padding:8px 0 4px}
-h1{font-size:26px;line-height:1.25;margin:8px 0 6px}
-.lead{color:var(--muted);margin:0 0 12px}
-.tip{background:var(--card);border-left:4px solid var(--accent);padding:10px 14px;border-radius:8px;margin:12px 0}
-.os{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.os span{color:var(--muted);font-size:14px}
-.os button{font:inherit;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;min-height:40px}
-.os button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
-.progress{display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;font-size:14px;color:var(--muted)}
-.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:8px}.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
-section.step{background:var(--card);border-radius:14px;padding:14px 16px;margin:14px 0}
-section.step h2{display:flex;align-items:center;gap:10px;font-size:19px;margin:0 0 8px}
-.num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-fg);display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
-section.step.done .num{background:var(--ok)}
-section.step p{margin:8px 0}
-section.step ol,section.step ul{padding-left:22px;margin:8px 0}
-section.step li{margin:6px 0}
-.panel{display:none}.panel.on{display:block}
-.pane-title{font-weight:600;margin:10px 0 4px}
-.check{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
-.check b{color:var(--ok)}
-label.done{display:flex;align-items:center;gap:10px;margin-top:12px;font-weight:600;cursor:pointer;min-height:44px}
-label.done input{width:22px;height:22px;accent-color:var(--ok)}
-.who{color:var(--muted);font-size:14px}
-pre{position:relative;background:var(--code);color:var(--code-fg);border-radius:10px;padding:12px 88px 12px 14px;overflow-x:auto;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0;-webkit-overflow-scrolling:touch}
-pre code{white-space:pre}
-.copy{position:absolute;top:8px;right:8px;font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:0;background:rgba(255,255,255,.14);color:var(--code-fg);cursor:pointer;min-height:32px}
-.copy.ok{background:var(--ok);color:#fff}
-code:not(pre code){background:rgba(127,127,127,.18);padding:1px 6px;border-radius:5px;font-size:.92em}
-details{margin:10px 0}summary{cursor:pointer;font-weight:600;min-height:32px}
-dl{margin:8px 0}dt{font-weight:600;margin-top:10px}dd{margin:2px 0 0 0;color:var(--muted)}
-footer{color:var(--muted);font-size:13px;margin-top:24px}
-figure{margin:12px 0}figure img{display:block;max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff}figcaption{font-size:13px;color:var(--muted);margin-top:6px}
-.sub{font-weight:600;margin:12px 0 4px}
-kbd{font:inherit;font-size:.9em;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--card)}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}.toc a{font-size:13px;padding:6px 10px;border-radius:999px;background:var(--card);text-decoration:none;color:var(--fg);border:1px solid var(--line)}
-</style>
-</head>
-<body>
-<main>
-<header>
-<h1>新人第一天</h1>
-<p class="lead">你好，欢迎加入 Ali Matrix。这一页是你在拥有任何账号之前唯一需要看的东西。按顺序做，每一步都有<b>怎么确认</b>和<b>不行找谁</b>。全部做完大约 1 到 2 小时，之后你就有一个 AI 助手带着你做后面的所有事，不需要再找人教。</p>
-<div class="tip">你不需要会编程，也不需要用过 AI。看不懂的词，页面最下面有<a href="#glossary">名词解释</a>。命令块右上角都有"复制"按钮，复制后粘贴到终端按回车。每一步做完勾一下，进度存在这台设备上。</div>
-<nav class="toc" aria-label="目录">
-<a href="#s0">0 准备</a><a href="#s1">1 GitHub</a><a href="#s2">2 装工具</a><a href="#s3">3 登录</a><a href="#s4">4 Claude 账号</a><a href="#s5">5 Claude Code</a><a href="#s6">6 进群</a><a href="#s7">7 接入流程</a><a href="#s8">8 第一句话</a><a href="#commands">命令速查</a><a href="#glossary">名词</a>
-</nav>
-</header>
-
-<div class="os" id="os">
-<span>你的电脑是：</span>
-<button data-os="mac">macOS</button><button data-os="win">Windows</button><button data-os="linux">Linux</button>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light dark"><title>新人第一天 · Ali Matrix</title><meta name="description" content="欢迎加入 Ali Matrix。一步步准备账号、加入团队、装好工具，让 AI 带你开始第一天。支持保存进度，随时继续。"><link rel="icon" href="img/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script src="app.js" defer></script></head>
+<body><a class="skip-link" href="#workspace">跳到当前步骤</a>
+<header class="site-header"><a class="brand" href="#s0" aria-label="Ali Matrix 入门指南"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true"><rect width="30" height="30" rx="9" fill="currentColor"/><path d="M7 21V9h4l4 7 4-7h4v12h-4v-5l-4 7-4-7v5H7Z" fill="var(--surface)"/></svg><span>ALI MATRIX</span><span class="brand-divider"></span><span class="brand-caption">入门指南</span></a><nav aria-label="快捷入口"><a href="#tools">工具箱</a><a href="#commands">常用参考</a><a href="#help">遇到问题 ↗</a></nav></header>
+<div class="page"><header class="welcome"><div><p class="eyebrow"><span class="status-dot"></span> WELCOME TO THE TEAM</p><h1>从这里，开始第一天。</h1><p class="welcome-copy">不用会编程，也不用用过 AI。跟着这份指南，<br class="desktop-break">准备好账号和工具，让你的 AI 助手带你继续。</p></div><div class="day-card"><span class="day-number">01<span> / DAY</span></span><p>今天的小目标</p><strong>和团队连接，让 AI 就位。</strong><span class="time-note">约 1.5–2.5 小时 · 审批等待另计</span></div></header>
+<div class="layout"><aside class="sidebar" aria-label="入门进度"><div class="progress-card"><div class="progress-heading"><strong>你的入门进度</strong><span id="ptext">0 / 11</span></div><progress id="progress" max="11" value="0" aria-label="已完成步骤">0 / 11</progress><p id="save-note">进度保存在当前浏览器，随时回来继续。</p><a id="resume" href="#s0">开始第一步 →</a></div><details class="journey" open><summary>全部步骤 <span id="mobile-position">第 1 / 11 步</span></summary><nav class="step-nav" aria-label="入门步骤"><p class="nav-group">01 <span>加入团队</span></p><a href="#s0" data-nav="s0"><span class="nav-number">1</span><span>做好准备<small>电脑、邮箱和网络</small></span><span class="nav-status"></span></a><a href="#s1" data-nav="s1"><span class="nav-number">2</span><span>准备 GitHub 账号<small>注册并开启两步验证</small></span><span class="nav-status"></span></a><a href="#s6" data-nav="s6"><span class="nav-number">3</span><span>加入公司组织<small>进群、绑定、接受邀请</small></span><span class="nav-status"></span></a><p class="nav-group">02 <span>准备工作环境</span></p><a href="#s2" data-nav="s2"><span class="nav-number">4</span><span>装好基础工具<small>Git、Node.js、GitHub CLI</small></span><span class="nav-status"></span></a><a href="#s3" data-nav="s3"><span class="nav-number">5</span><span>让终端登录 GitHub<small>连接你的账号</small></span><span class="nav-status"></span></a><a href="#s4" data-nav="s4"><span class="nav-number">6</span><span>准备 Claude 账号<small>确认订阅和报销</small></span><span class="nav-status"></span></a><a href="#s5" data-nav="s5"><span class="nav-number">7</span><span>装好 Claude Code<small>登录你的 AI 助手</small></span><span class="nav-status"></span></a><a href="#s9" data-nav="s9"><span class="nav-number">8</span><span>安装 Codex CLI<small>登录 ChatGPT 账号</small></span><span class="nav-status"></span></a><a href="#s10" data-nav="s10"><span class="nav-number">9</span><span>安装 Codex Desktop<small>准备桌面工作区</small></span><span class="nav-status"></span></a><p class="nav-group">03 <span>开始和 AI 工作</span></p><a href="#s7" data-nav="s7"><span class="nav-number">10</span><span>接入公司流程<small>安装入门插件</small></span><span class="nav-status"></span></a><a href="#s8" data-nav="s8"><span class="nav-number">11</span><span>说出第一句话<small>把下一步交给 AI</small></span><span class="nav-status"></span></a></nav></details><div class="sidebar-help"><span class="help-icon" aria-hidden="true">?</span><div><strong>卡住了？有人帮你。</strong><p>联系拉你进群的同事，或到<br>Telegram 主群的「求助」话题。</p><a href="#help">准备一条求助消息 →</a></div></div></aside>
+<main id="workspace" tabindex="-1"><div class="os-picker" id="os"><div><strong>你用哪台电脑完成安装？</strong><span id="os-hint">选择后，只显示对应系统的命令。</span></div><div class="os-buttons" role="group" aria-label="安装用的电脑系统"><button type="button" data-os="mac" aria-pressed="false">macOS</button><button type="button" data-os="win" aria-pressed="false">Windows</button><button type="button" data-os="linux" aria-pressed="false">Linux</button></div></div><noscript><div class="tip">当前浏览器未启用 JavaScript，下面显示完整指南和所有系统的命令。请只执行与你电脑系统对应的部分；进度保存和复制按钮暂不可用。</div></noscript>
+<section class="step" id="s0" data-step="0" data-title="做好准备" data-confirm="电脑、邮箱、网络已准备好，Telegram 已登录，也能联系到引路人"><header class="step-header"><p class="step-meta">加入团队<span>第 1 / 11 步 · 约 5 分钟</span></p><h2 tabindex="-1">先准备好这几样东西</h2><p>先打通联系和网络，后面每一步都会更顺利。</p></header><div class="step-body">
+<div class="essentials">
+<article><span class="item-icon" aria-hidden="true">▣</span><h3>一台电脑</h3><p>macOS、Windows 或 Linux。手机可以看指南，安装要在电脑上完成。</p></article>
+<article><span class="item-icon" aria-hidden="true">✉</span><h3>一个邮箱</h3><p>能正常收邮件。注册用哪个邮箱，先和拉你进群的同事确认。</p></article>
+<article><span class="item-icon" aria-hidden="true">↗</span><h3>联系上团队</h3><p>装好 <a href="#telegram">Telegram</a>，让同事拉你进群。本页称这位同事为「引路人」。</p></article>
 </div>
-<div class="progress"><span id="ptext">已完成 0 / 9</span><span>进度只存在这台设备上</span></div>
-<div class="bar"><i id="pbar"></i></div>
-
-<section class="step" id="s0" data-step="0">
-<h2><span class="num">0</span>准备</h2>
-<div class="sub">要有的东西</div>
-<ul>
-<li>一台自己的电脑，macOS、Windows、Linux 都行。</li>
-<li>一个能收邮件的邮箱。用哪个邮箱注册各种账号，以<b>拉你进群的同事</b>告诉你的为准，本页下面统称"你的引路人"。</li>
-<li>一个能上 Telegram 的手机或电脑，我们的沟通都在 Telegram 里。</li>
-</ul>
-<div class="sub">确认网络能用</div>
-<p>用浏览器打开 <a href="https://github.com" target="_blank" rel="noopener">github.com</a> 和 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>。两个都能正常显示就行；如果一直转圈、打不开或很慢，先别自己折腾，问引路人拿公司的网络方案，拿到再往下走。</p>
-<div class="sub">手机上装一个"验证器 app"</div>
-<p>后面注册 GitHub 要开"两步验证"：登录时除了密码，还要输一个手机上显示的 6 位数字。这个数字由验证器 app 生成。三选一，都免费：</p>
-<ul>
-<li><b>Google Authenticator</b>：iPhone 在 App Store 搜这个名字，Android 在应用商店搜；图标是灰色的星号。</li>
-<li><b>Microsoft Authenticator</b>：同样搜名字，蓝色图标。</li>
-<li><b>1Password</b> 或你已经在用的密码管理器，如果它支持"一次性密码"也可以。</li>
-</ul>
-<figure><img src="img/authenticator-app.svg" alt="验证器 app 示意：每个网站一行，一个 6 位数字每 30 秒变一次" loading="lazy"><figcaption>验证器 app 长这样。每个网站一行，6 位数字每 30 秒换一次。登录时网站问你要验证码，打开 app 抄那 6 位就行。手机换机前要先迁移，否则会登不上。</figcaption></figure>
-<p>装好先打开一次，允许它使用相机（扫码用），然后放着，下一步会用。</p>
-<p class="who">不行找谁：你的引路人。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
-
-<section class="step" id="s1" data-step="1">
-<h2><span class="num">1</span>注册 GitHub 并开两步验证</h2>
-<p>GitHub 是放代码和流程记录的网站，也是公司的"身份系统"：你能看什么、改什么，由它决定。</p>
-<div class="sub">1a 注册</div>
+<h3>确认工作网站都能打开</h3><p>在电脑浏览器中打开下面的网站，能正常显示页面即可。</p>
+<div class="link-row"><a class="link-card" href="https://github.com" target="_blank" rel="noopener">GitHub <span>打开网站 ↗</span></a><a class="link-card" href="https://claude.ai" target="_blank" rel="noopener">Claude <span>打开网站 ↗</span></a></div>
+<p class="muted">使用 Codex 还需要打开 <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a>。Telegram 的下载、登录方式见 <a href="#telegram">安装 Telegram</a>。</p><div class="tip"><b>如果打不开，先联系引路人。</b><p>公司会提供统一的网络方案。网络确认可用后再下载安装工具。</p></div>
+<details><summary>我是第一次用终端，能完成吗？</summary><p>可以。终端就是输入文字命令的窗口，后面会教你怎么打开。点击「复制」，粘贴到终端，按回车执行；每次等当前命令结束，再运行下一条。</p><figure><img src="img/terminal.svg" alt="终端示意：输入命令后，窗口显示执行结果或报错" loading="lazy"><figcaption>不用输入提示符中的 $，只复制命令本身。</figcaption></figure></details>
+<div class="check"><b>完成标准</b><p>有电脑和邮箱，工作网站都能打开，Telegram 已登录，也知道遇到问题找谁。</p></div></div></section>
+<section class="step" id="s1" data-step="1" data-title="准备 GitHub 账号" data-confirm="GitHub 两步验证已开启，恢复码已妥善保存"><header class="step-header"><p class="step-meta">加入团队<span>第 2 / 11 步 · 约 10–15 分钟</span></p><h2 tabindex="-1">准备你的 GitHub 身份</h2><p>GitHub 用来共享代码和公司流程，也是你加入公司组织的身份。</p></header><div class="step-body"><div class="tip subtle">已有 GitHub 账号？直接检查两步验证和恢复码，满足完成标准就可以继续。</div>
+<h3>1. 注册并验证邮箱</h3>
 <ol>
 <li>打开 <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>。</li>
-<li>依次填：邮箱（第 0 步那个）、密码（至少 8 位，存进密码管理器）、用户名。<b>用户名以后会公开显示、也是同事认你的名字</b>，建议用名字拼音，只能用字母、数字和连字符。</li>
+<li>依次填：邮箱（和引路人确认过的邮箱）、密码（按网页要求设置，并存进密码管理器）、用户名。<b>用户名以后会公开显示、也是同事认你的名字</b>，建议用名字拼音，只能用字母、数字和连字符。</li>
 <li>它会让你做一个"我不是机器人"的小游戏，按提示完成。</li>
 <li>去邮箱收一封验证码邮件，把码填回去。问你几个偏好问题，随便选或跳过。</li>
 </ol>
-<figure><img src="img/github-login.png" alt="GitHub 登录页" loading="lazy"><figcaption>注册好以后，GitHub 的登录页长这样。以后登录输邮箱和密码，开了两步验证后还会多问一个 6 位码。</figcaption></figure>
-<div class="sub">1b 开两步验证（必做）</div>
-<p><b>公司组织强制两步验证，不开的话后面加不进来。</b>四个画面，一步步来：</p>
-<figure><img src="img/github-2fa-flow.svg" alt="GitHub 开两步验证的四个画面：点按钮、扫码、输码、存恢复码" loading="lazy"><figcaption>四个画面对应下面四步。</figcaption></figure>
+<details class="illustration"><summary>查看图示：GitHub 登录页</summary><figure><img src="img/github-login.png" alt="GitHub 登录页" loading="lazy"><figcaption>注册好以后，GitHub 的登录页长这样。以后登录输邮箱和密码，开了两步验证后还会多问一个 6 位码。</figcaption></figure></details>
+<h3>2. 开启两步验证，并保存恢复码</h3>
+<p>请先完成这项账号保护，再申请加入公司。手机上准备 Google Authenticator、Microsoft Authenticator，或你已有的支持一次性密码的验证器。</p>
+<details class="illustration"><summary>查看图示：GitHub 开两步验证的四个画面</summary><figure><img src="img/github-2fa-flow.svg" alt="GitHub 开两步验证的四个画面：点按钮、扫码、输码、存恢复码" loading="lazy"><figcaption>四个画面对应下面四步。</figcaption></figure></details>
 <ol>
 <li>登录后打开 <a href="https://github.com/settings/security" target="_blank" rel="noopener">github.com/settings/security</a>，找到 Two-factor authentication，点绿色按钮 <b>Enable two-factor authentication</b>。</li>
 <li>它显示一个二维码。打开手机上的验证器 app，点"＋"或"扫码添加"，对准电脑屏幕扫。扫完 app 里会多出一行 GitHub，下面是 6 位数字。</li>
 <li>把 app 上此刻显示的 6 位数字填进网页的输入框，点 Continue。数字每 30 秒变一次，快到期就等下一组。</li>
-<li>它给你一页 <b>Recovery codes</b>（恢复码）。点 Download 或 Copy，存进密码管理器或一个安全的地方。<b>手机丢了只能靠它找回账号，不要只截图放相册。</b>然后点确认完成。</li>
+<li>它给你一页 <b>Recovery codes</b>（恢复码）。点 Download 或 Copy，存进密码管理器或一个安全的地方。<b>无法使用验证器时，可以用恢复码恢复访问。不要发给别人，也不要只截图放相册。</b>然后点确认完成。</li>
 </ol>
-<div class="check"><b>怎么确认：</b>回到 settings/security 页，Two-factor authentication 一栏显示 Enabled。再记住你的用户名，后面要报给 bot。</div>
+<div class="check"><b>完成标准：</b>回到 settings/security 页，Two-factor authentication 一栏显示 Enabled。再记住你的用户名，之后绑定 bot 和终端时，要使用同一个账号。</div>
 <p class="who">卡住：验证码总提示错误，多半是手机时间不准，去手机设置里把时间改成自动获取。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
 
-<section class="step" id="s2" data-step="2">
-<h2><span class="num">2</span>装三个基础工具</h2>
-<p>终端是用文字命令操控电脑的窗口，AI 助手就住在里面。要装的三个工具：<code>git</code> 记录代码修改，<code>Node.js</code> 运行一些工具，<code>gh</code> 让终端能操作 GitHub。先在上面选你的电脑系统。</p>
-<figure><img src="img/terminal.svg" alt="终端窗口示意：命令、成功输出、找不到命令的报错" loading="lazy"><figcaption>终端长这样。"$"前面是提示符，不用输入；一行命令回车，它把结果打回来。</figcaption></figure>
+</div></section>
+<section class="step" id="s6" data-step="6" data-title="加入公司组织" data-confirm="已接受 GitHub 邀请，并确认成为公司组织成员"><header class="step-header"><p class="step-meta">加入团队<span>第 3 / 11 步 · 操作约 5 分钟，审批另计</span></p><h2 tabindex="-1">和团队连接起来</h2><p>现在提交入职申请。等审批时，可以继续装工具。</p></header><div class="step-body">
+<ol class="flow-list">
+<li><strong>进群，找到 Morpheus</strong><p>请引路人把你拉进 Telegram 公司群，并发给你 Morpheus 的名片或私聊入口，打开与 bot 的私聊。</p><div class="tip subtle"><b>群里目前只有两个入口</b><p><b>求助：</b>提问、反馈卡住的步骤。<br><b>公告：</b>查看团队通知和流程更新。</p><p>入职和权限申请在 Morpheus 私聊中进行，进度和审批结果也在私聊查看。</p></div></li>
+<li><strong>绑定你的 GitHub 账号</strong><p>私聊发送 <code>/start</code>。打开 bot 给的 GitHub 链接，登录刚准备好的账号，输入它提供的 8 位代码并授权；回到 Telegram 点击「我已授权」。</p></li>
+<li><strong>看到「入职申请已提交」后，等审批</strong><p>审批结果会通过私聊通知。在 bot 菜单的「入门看板」或发送 <code>/status</code> 可以查看进度。</p></li>
+<li><strong>收到邀请后，去 GitHub 接受</strong><p>用绑定的同一个 GitHub 账号打开邀请页面，点击 <b>Join</b>。管理员批准和你接受邀请是两件事，接受后才真正加入。</p><a class="button secondary" href="https://github.com/orgs/Ali-Matrix-Technologies/invitation" target="_blank" rel="noopener">打开 GitHub 邀请页面 ↗</a></li>
+</ol>
+<div class="tip waiting"><b>还在等待审批或邀请？</b><p>先继续准备电脑环境。这一步会保留为「等待中」，安装公司流程前再回来接受邀请。</p><button class="text-button" id="wait-approval" type="button">申请已提交，先去装工具 →</button></div>
+<details class="illustration"><summary>查看图示：入职绑定图解</summary><figure><img src="img/morpheus-flow.svg" alt="入职绑定图解：开始入职、GitHub 授权、提交申请、接受邀请" loading="lazy"><figcaption>操作在 Telegram 和浏览器之间切换。</figcaption></figure></details>
+<div class="check"><b>完成标准：</b>已接受邀请，且 <a href="https://github.com/settings/organizations" target="_blank" rel="noopener">GitHub 组织列表 ↗</a> 中出现 Ali-Matrix-Technologies。bot 看板可能稍后才更新。</div>
+<details><summary>没有入群记录，或邀请页面显示 404？</summary><p>没有入群记录：请引路人联系管理员，在群里回复你的消息并发送 <code>/sponsor</code>，之后你再私聊 <code>/start</code>。</p><p>邀请页 404：确认登录的是绑定的账号，并检查 bot 是否已通知「邀请已发出」。还未审批就继续等；已收到通知仍打不开，联系引路人。</p></details></div></section>
+<section class="step" id="s2" data-step="2" data-title="装好基础工具" data-confirm="Git、Node.js 和 gh 都能打印版本号"><header class="step-header"><p class="step-meta">准备工作环境<span>第 4 / 11 步 · 约 15–30 分钟</span></p><h2 tabindex="-1">装好三个基础工具</h2><p>Git 记录修改，Node.js 运行工具，GitHub CLI（gh）连接你的账号。</p></header><div class="step-body"><div class="os-required tip">先在上方选择安装用的电脑系统，即可看到对应命令。</div>
+<details class="illustration"><summary>查看图示：终端窗口示意</summary><figure><img src="img/terminal.svg" alt="终端窗口示意：命令、成功输出、找不到命令的报错" loading="lazy"><figcaption>终端长这样。"$"前面是提示符，不用输入；一行命令回车，它把结果打回来。</figcaption></figure></details>
 
 <div class="panel" data-os="mac">
-<div class="pane-title">macOS</div>
+<h3>macOS</h3>
 <ol>
 <li>打开"终端"：按 <kbd>⌘</kbd> + <kbd>空格</kbd>，输入 终端，回车。出现一个黑底或白底的窗口。</li>
 <li>装 Homebrew（macOS 上装软件的工具）。点下面的"复制"，回到终端 <kbd>⌘</kbd> + <kbd>V</kbd> 粘贴，回车：
 <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
-它会要你的电脑登录密码，输入时屏幕不显示任何字符，这是正常的，输完回车。中途可能弹窗让你装"命令行开发者工具"，点安装，等它装完（可能十几分钟）。最后它会打印两行以 <code>echo</code> 和 <code>eval</code> 开头的命令让你执行，照做。</li>
-<li>装三个工具，一行搞定：
-<pre><code>brew install git node gh</code></pre></li>
+它会要你的电脑登录密码，输入时屏幕不显示任何字符，这是正常的，输完回车。中途可能弹窗让你装"命令行开发者工具"，点安装，等它装完（可能十几分钟）。安装结束后，按终端中 <b>Next steps</b> 的提示执行命令，把 Homebrew 加入 PATH；再打开一个新终端。</li>
+<li>安装 Git 和 GitHub CLI：
+<pre><code>brew install git gh</code></pre></li><li>打开 <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">Node.js 下载页 ↗</a>，选择标注 <b>LTS</b> 的版本与 macOS，下载 <b>.pkg 安装包</b>，双击完成安装。</li>
 </ol>
 </div>
 
 <div class="panel" data-os="win">
-<div class="pane-title">Windows</div>
+<h3>Windows</h3>
 <ol>
-<li>打开 PowerShell：按 <kbd>Win</kbd> + <kbd>X</kbd>，选"终端（管理员）"或"Windows PowerShell（管理员）"；找不到就在开始菜单搜索 PowerShell，右键"以管理员身份运行"。弹出"是否允许此应用更改"选是。</li>
+<li>打开 PowerShell：在开始菜单搜索 PowerShell 并打开。安装时如果弹出系统权限确认，按提示允许。</li>
 <li>先看有没有 <code>winget</code>：
 <pre><code>winget --version</code></pre>
 打印出版本号就跳到第 3 条。提示"无法识别"就去 Microsoft Store 搜"应用安装程序"，点更新或安装，装完关掉 PowerShell 重开再试。
-<figure><img src="img/ms-app-installer.png" alt="Microsoft Store 里的“应用安装程序”页面" loading="lazy"><figcaption>Microsoft Store 里叫"应用安装程序"，winget 就在里面。</figcaption></figure>
+<details class="illustration"><summary>查看图示：Microsoft Store 里的“应用安装程序”页面</summary><figure><img src="img/ms-app-installer.png" alt="Microsoft Store 里的“应用安装程序”页面" loading="lazy"><figcaption>Microsoft Store 里叫"应用安装程序"，winget 就在里面。</figcaption></figure></details>
 </li>
 <li>依次执行三行，每行回车等它装完再下一行，中间要你确认协议就按 <kbd>Y</kbd> 回车：
 <pre><code>winget install --id Git.Git -e</code></pre>
@@ -157,194 +86,102 @@ kbd{font:inherit;font-size:.9em;border:1px solid var(--line);border-bottom-width
 <li>Node.js：<a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>，选 LTS，系统选 Windows，下载 .msi。</li>
 <li>gh：<a href="https://cli.github.com/" target="_blank" rel="noopener">cli.github.com</a>，Download for Windows。</li>
 </ul>
-<figure><img src="img/git-windows.png" alt="git-scm.com 的 Windows 下载页" loading="lazy"><figcaption>Git 的 Windows 下载页，第一行 Click here to download 就是。</figcaption></figure>
-<figure><img src="img/nodejs-download.png" alt="nodejs.org 的下载页" loading="lazy"><figcaption>Node.js 下载页，版本选带 LTS 标记的，系统选你的。</figcaption></figure>
+<details class="illustration"><summary>查看图示：git-scm.com 的 Windows 下载页</summary><figure><img src="img/git-windows.png" alt="git-scm.com 的 Windows 下载页" loading="lazy"><figcaption>Git 的 Windows 下载页，第一行 Click here to download 就是。</figcaption></figure></details>
+<details class="illustration"><summary>查看图示：nodejs.org 的下载页</summary><figure><img src="img/nodejs-download.png" alt="nodejs.org 的下载页" loading="lazy"><figcaption>Node.js 下载页，版本选带 LTS 标记的，系统选你的。</figcaption></figure></details>
 </details>
 </div>
 
 <div class="panel" data-os="linux">
-<div class="pane-title">Linux（Ubuntu / Debian）</div>
+<h3>Linux（Ubuntu / Debian）</h3>
 <ol>
 <li>打开终端，执行（会要你的密码，输入不显示是正常的）：
 <pre><code>sudo apt update &amp;&amp; sudo apt install -y git curl</code></pre></li>
-<li>装 nvm（管理 Node 版本的工具），再装 Node：
-<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code></pre>
-关掉终端重新打开，再执行：
-<pre><code>nvm install --lts</code></pre></li>
-<li>gh 按官方说明安装：<a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank" rel="noopener">install_linux.md</a>，Ubuntu 一节复制整段执行即可。</li>
+<li>打开 <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">Node.js 官方下载页 ↗</a>，选择 <b>LTS → Linux → nvm</b>，按页面命令安装。安装 nvm 后，按提示加载环境或重新打开终端，再安装 Node.js。</li>
+<li>gh 按官方说明安装：<a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank" rel="noopener">install_linux.md</a>，使用 Debian / Ubuntu (apt) 一节的命令；其他发行版按对应章节安装。</li>
 </ol>
 </div>
 
-<div class="check"><b>怎么确认：</b><b>关掉终端，重新打开一个</b>（不做这一步下面会说找不到命令），执行：
-<pre><code>git --version &amp;&amp; node --version &amp;&amp; gh --version</code></pre>
-三行都打印出版本号，node 的版本 v18 以上。</div>
-<p class="who">常见问题：提示 command not found 或"无法识别"，九成是没重开终端；Windows 还不行就重启电脑。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
+<div class="check"><b>完成标准：</b><b>关掉终端，重新打开一个</b>（让安装后的环境变量生效），执行：
+<pre><code>git --version</code></pre><pre><code>node --version</code></pre><pre><code>gh --version</code></pre>
+每次执行一条，三条都显示版本号。Node.js 使用受支持的 LTS（长期支持）版本。</div>
+<p class="who">常见问题：提示 command not found 或"无法识别"，先检查安装是否成功，再重开终端；Windows 还不行就重启电脑。</p>
 
-<section class="step" id="s3" data-step="3">
-<h2><span class="num">3</span>让终端登录 GitHub</h2>
-<p>让终端里的 <code>gh</code> 认识你的 GitHub 账号，以后拉代码、装公司流程都靠它。</p>
+</div></section>
+<section class="step" id="s3" data-step="3" data-title="让终端登录 GitHub" data-confirm="gh 显示已登录，账号与绑定给 Morpheus 的一致"><header class="step-header"><p class="step-meta">准备工作环境<span>第 5 / 11 步 · 约 5 分钟</span></p><h2 tabindex="-1">让终端认识你的 GitHub</h2><p>浏览器登录和终端登录是两回事。这一步让电脑能下载公司流程。</p></header><div class="step-body"><h3>1. 在终端发起登录</h3>
 <pre><code>gh auth login -h github.com -p https -w</code></pre>
-<p>它会一问一答，用键盘上下键选、回车确认：</p>
+<p>这条命令已选好 GitHub.com、HTTPS 和浏览器登录，部分选择题会自动跳过。若询问是否用 GitHub 凭据登录 Git，选 <b>Yes</b>。</p>
+<ol><li>终端显示一次性的 8 位代码，按回车打开浏览器。</li><li>用绑定给 Morpheus 的 GitHub 账号登录，输入<b>这次终端给的代码</b>，按提示授权。</li><li>回到终端，看到 <b>Logged in as</b> 和你的用户名。</li></ol>
+<div class="tip subtle">这是 GitHub CLI 的授权，与之前 Morpheus 的授权各做一次，代码不能混用。</div>
+<h3>2. 让 Git 使用同一份登录</h3><pre><code>gh auth setup-git</code></pre>
+<div class="check"><b>完成标准</b><pre><code>gh auth status</code></pre><p>显示已登录 github.com，当前账号与你绑定给 Morpheus 的一致。</p></div>
+<details><summary>浏览器没打开，或登录错账号？</summary><p>浏览器没打开：手动前往 <a href="https://github.com/login/device" target="_blank" rel="noopener">GitHub 设备授权页 ↗</a>，输入终端本次显示的代码。过期就重新执行登录命令。</p><p>登录错账号：重新运行上面的登录命令，在浏览器确认使用正确账号，再运行 <code>gh auth status</code> 检查。</p></details></div></section>
+<section class="step" id="s4" data-step="4" data-title="准备 Claude 账号" data-confirm="自己的 Claude 订阅已生效，账单已留存"><header class="step-header"><p class="step-meta">准备工作环境<span>第 6 / 11 步 · 约 5–10 分钟</span></p><h2 tabindex="-1">准备你的 Claude 账号</h2><p>Claude Code 使用你的 Claude 账号。账号由你自己持有，订阅费用按公司流程报销。</p></header><div class="step-body"><div class="tip"><b>付款前，先向引路人确认订阅档位和报销要求。</b><p>已有可用订阅就直接检查状态。保留账单，具体报销额度和流程以后续公司 SOP 为准。</p></div>
 <ol>
-<li>Where do you use GitHub? 选 <b>GitHub.com</b></li>
-<li>What is your preferred protocol? 选 <b>HTTPS</b></li>
-<li>Authenticate Git with your GitHub credentials? 选 <b>Yes</b></li>
-<li>How would you like to authenticate? 选 <b>Login with a web browser</b></li>
-<li>它显示一个 8 位码，例如 <code>ABCD-1234</code>，记下来，回车。浏览器会打开 GitHub 的登录页（长得和第 1 步那张图一样），登录后出现输码的框，把 8 位码输进去，点 Continue，再点 Authorize。</li>
-<li>回到终端，看到 Logged in as 你的用户名。</li>
-</ol>
-<p>再执行下面这行，让 git 也用同一份登录：</p>
-<pre><code>gh auth setup-git</code></pre>
-<div class="check"><b>怎么确认：</b>执行 <code>gh auth status</code>，显示 Logged in to github.com account 你的用户名。</div>
-<p class="who">卡住：浏览器没自动打开就手动打开 <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device</a> 输码。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
-
-<section class="step" id="s4" data-step="4">
-<h2><span class="num">4</span>注册 Claude 并订阅</h2>
-<p>Claude Code 是我们主要用的 AI 助手，第一天只装这一个。它需要一个 Claude 账号，费用你先付，公司报销，报销流程进群后 AI 会告诉你。</p>
-<ol>
-<li>打开 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>，点 Sign up，用第 0 步的邮箱注册。它会发一个登录链接或验证码到邮箱，去邮箱点一下。</li>
+<li>打开 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>，点 Sign up，用和引路人确认过的邮箱注册。它会发一个登录链接或验证码到邮箱，去邮箱点一下。</li>
 <li>登录后左下角点你的头像或名字，进 <b>Settings</b>，找 <b>Billing</b>（或页面上的 Upgrade 按钮）。</li>
-<li>选 <b>Pro</b>（日常够用）或 <b>Max</b>（重度写代码），按月付。填银行卡付款。</li>
-<li>付完在 Billing 页能看到订阅状态和账单，账单以后报销用，现在不用管。</li>
+<li>按和引路人确认好的方案订阅。个人 <b>Pro</b> 和 <b>Max</b> 支持 Claude Code，具体价格以 <a href="https://claude.com/pricing" target="_blank" rel="noopener">官方定价页 ↗</a> 为准。</li>
+<li>付完在 Billing 页能看到订阅状态和账单，请保留账单或收据，后续报销会用到。</li>
 </ol>
-<figure><img src="img/claude-pricing.png" alt="Claude 的定价页：Free、Pro、Max 三档" loading="lazy"><figcaption>三档里选 Pro 或 Max，两档都包含 Claude Code。Free 不能用 Claude Code。</figcaption></figure>
-<div class="check"><b>怎么确认：</b>Billing 页显示 Pro 或 Max 订阅生效。</div>
-<p class="who">卡住：付款被拒多半是银行卡不支持美元或海外扣款，换一张卡，或问引路人公司有没有统一方案。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
+<details class="illustration"><summary>查看图示：Claude 的定价页</summary><figure><img src="img/claude-pricing.png" alt="Claude 的定价页：Free、Pro、Max 三档" loading="lazy"><figcaption>截图仅作页面参考，套餐内容和价格以官网当前说明为准。</figcaption></figure></details>
+<div class="check"><b>完成标准：</b>Billing 页显示 Pro 或 Max 订阅生效。</div>
+<p class="who">卡住：无法付款或登录时，把页面的错误提示发给引路人，确认可用方案。不要附上银行卡信息、密码或验证码。</p>
 
-<section class="step" id="s5" data-step="5">
-<h2><span class="num">5</span>装 Claude Code 并登录</h2>
-<div class="panel" data-os="mac"><div class="pane-title">macOS 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
-<div class="panel" data-os="linux"><div class="pane-title">Linux 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
-<div class="panel" data-os="win"><div class="pane-title">Windows PowerShell（普通权限即可）</div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre><p>如果报"禁止运行脚本"，先执行下面这行回答 <kbd>Y</kbd>，再执行上面那行：</p><pre><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code></pre></div>
-<p>装完<b>关掉终端重新打开</b>，执行：</p>
+</div></section>
+<section class="step" id="s5" data-step="5" data-title="装好 Claude Code" data-confirm="Claude Code 能显示版本号，并已用订阅账号登录"><header class="step-header"><p class="step-meta">准备工作环境<span>第 7 / 11 步 · 约 10 分钟</span></p><h2 tabindex="-1">让 AI 助手在电脑上就位</h2><p>把 Claude Code 装进终端，再登录你的订阅账号。</p></header><div class="step-body"><div class="os-required tip">先在上方选择安装用的电脑系统，即可看到安装命令。</div>
+
+<div class="panel" data-os="mac"><h3>macOS 终端</h3><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
+<div class="panel" data-os="linux"><h3>Linux 终端</h3><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
+<div class="panel" data-os="win"><h3>Windows PowerShell（普通权限即可）</h3><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></div>
+<p>按安装结束的提示处理 PATH，然后<b>关掉终端重新打开</b>，执行：</p>
 <pre><code>claude</code></pre>
 <p>第一次运行它会问你几个问题：</p>
 <ol>
 <li>选配色，随便选，回车。</li>
-<li>登录方式选 <b>Claude account with subscription</b>（用你第 4 步的订阅账号），不要选 Console。</li>
-<li>浏览器打开，用第 4 步的账号登录，点允许，回到终端。</li>
-<li>它可能问是否信任当前文件夹，选 Yes。之后出现一个可以打字的对话框，说明成了。先按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 两次退出，第 8 步再回来。</li>
+<li>登录方式选 <b>Claude account with subscription</b>（用你「准备 Claude 账号」的订阅账号），不要选 Console。</li>
+<li>浏览器打开，用「准备 Claude 账号」的账号登录，点允许，回到终端。</li>
+<li>它可能问是否信任当前文件夹，先确认路径是你准备工作的目录，再同意。之后出现一个可以打字的对话框，说明成了。先按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 两次退出，安装公司流程后再回来。</li>
 </ol>
-<div class="check"><b>怎么确认：</b>执行 <code>claude --version</code> 打印版本号。</div>
-<p class="who">卡住：找不到 claude 命令，重开终端；Windows 还不行就重启电脑。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
+<div class="check"><b>完成标准：</b>刚才能进入对话，退出后执行 <code>claude --version</code> 能打印版本号。</div>
+<p class="who">卡住：先重开终端，检查安装输出中的 PATH 提示，或对照 <a href="https://code.claude.com/docs/en/setup" target="_blank" rel="noopener">官方安装说明 ↗</a>。</p>
 
-<section class="step" id="s6" data-step="6">
-<h2><span class="num">6</span>进群，绑定，等审批</h2>
-<p>我们用 Telegram 沟通。手机装 Telegram 并注册后，把你的 Telegram 用户名或手机号告诉引路人，让他把你拉进公司群。群里分几个"话题"：新人入口、申请审批、求助、公告，进群先看新人入口的置顶。</p>
-<figure><img src="img/morpheus-flow.svg" alt="进群后与 Morpheus 私聊绑定 GitHub 的四个画面" loading="lazy"><figcaption>进群之后的四步，全程在 Telegram 和浏览器之间切换。</figcaption></figure>
-<ol>
-<li>进群后一个叫 <b>Morpheus</b> 的 bot 会在新人入口 @你，给你一个"🚀 开始入职"按钮。点它，会打开和 Morpheus 的私聊。</li>
-<li>在私聊里发 <code>/start</code>。它回你一个 GitHub 的链接和一个 8 位代码。浏览器打开链接，用第 1 步的 GitHub 账号登录，把代码输进去，点 Continue、Authorize。</li>
-<li>回到 Telegram 点"✅ 我已授权"。它会说"入职申请已提交"。</li>
-<li>等管理员在群里点批准。批准后你会收到私聊"邀请已发出"，去 <a href="https://github.com/orgs/Ali-Matrix-Technologies/invitation" target="_blank" rel="noopener">接受邀请</a>，页面上点绿色的 Join。</li>
-<li>私聊里点左下角的菜单按钮"入门看板"，能看到你走到哪一步了，卡在哪一步它会告诉你下一步做什么。</li>
-</ol>
-<div class="check"><b>怎么确认：</b>Morpheus 私聊你"已接受邀请，入职单完成"；或者看板里前三步都是 ✅。</div>
-<p class="who">卡住：/start 说"没有你的入群记录"，让拉你进群的人在群里回复你任意一条消息并发 /sponsor，再重发 /start。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
+<details><summary>Windows 提示脚本策略限制？</summary><p>可以在 PowerShell 使用官方提供的 WinGet 安装方式：</p><pre><code>winget install Anthropic.ClaudeCode</code></pre></details></div></section>
+<section class="step" id="s9" data-step="9" data-title="安装 Codex CLI" data-confirm="Codex CLI 已安装，并已用自己的 ChatGPT 账号登录"><header class="step-header"><p class="step-meta">准备工作环境<span>第 8 / 11 步 · 约 5–10 分钟</span></p><h2 tabindex="-1">在终端里用上 Codex</h2><p>Codex CLI 是另一个 AI 工作入口，使用你自己的 ChatGPT 账号登录。</p></header><div class="step-body">
+<div class="tip"><b>先准备自己的 ChatGPT 账号。</b><p>打开 <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a> 注册或登录，确认账号有 Codex 使用权限。需要订阅或升级时，先和引路人确认方案与报销要求；已有可用账号就直接使用。</p></div>
+<h3>1. 安装 Codex CLI</h3><p>先完成 <a href="#s2">基础工具安装</a>。已有 Node.js 的电脑可以在普通终端逐条执行：</p><pre><code>npm install -g @openai/codex</code></pre><p>装完重开终端，检查版本：</p><pre><code>codex --version</code></pre>
+<h3>2. 用 ChatGPT 账号登录</h3><pre><code>codex login</code></pre><p>在浏览器按提示登录自己的 ChatGPT 账号并授权，完成后回到终端。使用个人账号的同事选择 ChatGPT 登录即可。</p><div class="check"><b>完成标准</b><pre><code>codex login status</code></pre><p>显示已登录，且 <code>codex --version</code> 能打印版本号。</p></div>
+<details><summary>安装失败、没有权限或找不到 codex？</summary><p>先重开终端。Windows 若 npm.ps1 被脚本策略阻止，把安装命令中的 <code>npm</code> 改成 <code>npm.cmd</code>。macOS / Linux 若 npm 提示 EACCES，可以改用 <a href="https://developers.openai.com/codex/cli/" target="_blank" rel="noopener">官方独立安装方式 ↗</a>；不要直接给 npm 安装命令加 sudo。</p><p>仍然失败，把安装报错和系统信息发给引路人。</p></details>
+</div></section>
+<section class="step" id="s10" data-step="10" data-title="安装 Codex Desktop" data-confirm="桌面应用已登录，能打开 Codex 工作区并创建对话"><header class="step-header"><p class="step-meta">准备工作环境<span>第 9 / 11 步 · 约 5–10 分钟</span></p><h2 tabindex="-1">也准备好 Codex 桌面入口</h2><p>桌面窗口适合管理项目和对话；CLI 适合在终端工作，两个入口都准备好。</p></header><div class="step-body">
+<div class="tip subtle">官网目前以 ChatGPT 桌面应用提供 Codex 工作区。安装后选择 <b>Codex</b>，使用与 CLI 相同的 ChatGPT 账号。</div>
+<div class="os-required tip">先在上方选择你的电脑系统，查看桌面版的安装方式。</div>
+<div class="panel" data-os="mac"><h3>macOS</h3><p>已经装好 Codex CLI 后，运行下面的命令打开桌面应用；未安装时会启动安装流程：</p><pre><code>codex app</code></pre><p>也可以打开 <a href="https://developers.openai.com/codex/app/" target="_blank" rel="noopener">官方桌面应用下载页 ↗</a>，按你的设备支持情况下载安装包。打开后按提示完成安装。</p></div>
+<div class="panel" data-os="win"><h3>Windows</h3><p>已经装好 Codex CLI 后，在 PowerShell 运行：</p><pre><code>codex app</code></pre><p>按提示安装并打开桌面应用。也可从 <a href="https://developers.openai.com/codex/app/" target="_blank" rel="noopener">官方桌面应用说明 ↗</a> 找到 Windows 安装入口。</p></div>
+<div class="panel" data-os="linux"><h3>Linux</h3><p>按 <a href="https://learn.chatgpt.com/docs/linux/linux-app" target="_blank" rel="noopener">官方 Linux 桌面版说明 ↗</a> 检查支持的发行版和处理器，下载对应的 .deb 或 .rpm 包并安装。Linux 桌面版目前为预览版；不支持的系统请联系引路人确认替代安排。</p></div>
+<h3>登录，选一个工作文件夹</h3><ol><li>打开应用，登录与 Codex CLI 相同的 ChatGPT 账号。</li><li>选择 <b>Codex</b> 工作区，打开你准备工作的文件夹，或按界面提示创建项目。</li><li>创建新对话。公司插件会在下一步统一安装，安装后重新打开应用检查。</li></ol><div class="check"><b>完成标准：</b>桌面应用已登录，可以进入 Codex 工作区并创建对话。</div><details><summary>看不到 Codex 入口，或系统不受支持？</summary><p>先检查是否下载了官方当前版本、登录了正确账号。按官网支持范围核对系统；仍不可用就联系引路人，先保留可用的 Codex CLI。</p></details>
+</div></section>
+<section class="step" id="s7" data-step="7" data-title="接入公司流程" data-confirm="安装器显示「完成」，验证通过，没有失败项"><header class="step-header"><p class="step-meta">开始和 AI 工作<span>第 10 / 11 步 · 约 5 分钟</span></p><h2 tabindex="-1">把公司流程交给 AI</h2><p>安装入门插件，让 AI 知道公司的流程，以及该怎么带你完成。</p></header><div class="step-body"><div class="tip"><b>安装前，请确认三件事</b><ul><li>GitHub 的组织邀请已接受。</li><li>Git、Node.js、gh 已安装，终端已登录正确的 GitHub 账号。</li><li>Claude Code、Codex CLI 和 Codex Desktop 已安装并登录。</li></ul><p>还在等审批？回到 <a href="#s6">「加入公司组织」</a> 查看邀请。</p></div>
+<div id="prerequisites" class="tip waiting" hidden></div>
+<div id="install-content"><h3>在普通终端运行</h3><p>如果还在与 Claude 或 Codex 对话，先按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 退出，再粘贴这条命令：</p><pre><code>npx github:Ali-Matrix-Technologies/ali-sop</code></pre><p>出现 <b>Ok to proceed?</b> 时，按 <kbd>y</kbd> 回车。安装器会检查前置、同步流程库、分别为 Claude Code 和 Codex CLI 安装插件并验证。</p><div class="check"><b>完成标准：</b>最后显示「完成」，Claude Code 和 Codex 两端验证通过，没有 ✘ 失败项。若出现「部分失败」，先按失败项提示处理。</div></div>
+<details><summary>报 404、没权限，或找不到 npx？</summary><p>404 / 没权限：检查 <a href="#s6">邀请是否已接受</a>，再用 <code>gh auth status</code> 检查是否登录同一个账号。</p><p>找不到 npx：回到 <a href="#s2">基础工具</a> 检查 Node.js，装好后重开终端。Windows 若提示 npx.ps1 被执行策略阻止，可把命令开头的 <code>npx</code> 换成 <code>npx.cmd</code> 再运行。</p></details></div></section>
+<section class="step" id="s8" data-step="8" data-title="说出第一句话" data-confirm="AI 已读到公司流程，并开始带我做下一步"><header class="step-header"><p class="step-meta">开始和 AI 工作<span>第 11 / 11 步 · 约 2 分钟</span></p><h2 tabindex="-1">接下来，和 AI 一起做</h2><p>账号和工具准备好了。让 AI 带你走进公司的工作方式。</p></header><div class="step-body"><div id="first-message-prerequisites" class="tip waiting" hidden></div><h3>1. 选择一个 AI 入口，重新打开</h3><p>安装插件后重新启动，在新会话中加载公司流程。</p><pre><code>claude</code></pre><p>也可以在终端运行 <code>codex</code>，或重新打开 Codex Desktop。在桌面版的插件列表中检查公司插件是否已启用；如果没有，先使用 CLI 并联系引路人排查。</p><h3>2. 在 AI 的对话框里说</h3><pre data-context="AI 对话框 · 不是终端命令"><code>我是新人，从哪开始</code></pre><p>AI 会读取公司流程，给你推荐顺序，并询问是否带着做。回复「要」就可以开始；不懂的地方随时问「这是什么意思」。</p><div class="check"><b>完成标准：</b>AI 找到了 Ali Matrix 的公司流程，并开始带你做下一步。如果只给通用建议，请回到 <a href="#s7">接入公司流程</a> 检查安装结果。</div><div class="tip subtle"><b>准备好后，这样开始工作</b><p>做事情直接问 AI；入职和权限申请私聊 Morpheus，申请权限发送 <code>/request</code>。群里的两个入口分工很简单：「求助」提问，「公告」看通知和流程更新。</p></div></div></section>
 
-<section class="step" id="s7" data-step="7">
-<h2><span class="num">7</span>一条命令接入公司流程</h2>
-<p>回到终端，执行：</p>
-<pre><code>npx github:Ali-Matrix-Technologies/ali-sop</code></pre>
-<p>第一次它会问 Need to install the following packages… Ok to proceed? 按 <kbd>y</kbd> 回车。然后它分四段打印：前置检查、同步流程库、给 Claude Code 装引导技能、验证，每行前面打勾。</p>
-<div class="check"><b>怎么确认：</b>最后打印"完成"，四段里没有 ✘。有 ✘ 的那行会写明原因和该去看哪一步。</div>
-<p class="who">卡住：报 404 或没权限，说明第 6 步的邀请还没接受；报找不到 npx，说明第 2 步的 Node 没装好或没重开终端。</p>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
-
-<section class="step" id="s8" data-step="8">
-<h2><span class="num">8</span>对 AI 说第一句话</h2>
-<p>终端执行 <code>claude</code> 进入对话，在对话框里输入下面这句，回车：</p>
-<pre><code>我是新人，从哪开始</code></pre>
-<p>它会先同步公司流程库，然后列出所有流程，给你一个推荐顺序，并问你要不要带着做。说"要"。它做的每一步都会解释，看不懂的直接问它"这是什么意思"。它遇到要改别人权限、删除、花钱的事会先停下来问你，看清楚再答"是"。</p>
-<div class="tip"><b>从此以后：</b>卡住了在群里的"求助"话题发消息，或对 AI 说"我卡住了"让它帮你写求助消息；想申请权限私聊 Morpheus 发 <code>/request</code>；想看流程发 <code>/sops</code>；想看进度点菜单"入门看板"。</div>
-<label class="done"><input type="checkbox"> 这一步做完了</label>
-</section>
-
-<section class="step" id="commands">
-<h2>用到的命令，没有怎么办</h2>
-<p>每个命令都可以先用 <code>某命令 --version</code> 看有没有。<b>装完任何东西都要关掉终端重新打开</b>，否则一律"找不到命令"。</p>
-<dl>
-<dt>终端 / PowerShell 本身</dt>
-<dd>macOS：自带，⌘ + 空格 搜"终端"。Windows：自带 PowerShell，按 Win + X 打开；推荐去 Microsoft Store 装"Windows Terminal"更好用。Linux：自带。</dd>
-<dt>winget（只有 Windows）</dt>
-<dd>Windows 10 1809 以上和 Windows 11 自带。没有：Microsoft Store 搜"应用安装程序"安装或更新。仍不行就直接下载安装包：<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git</a>、<a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 选 LTS</a>、<a href="https://cli.github.com/" target="_blank" rel="noopener">GitHub CLI</a>，一路下一步。</dd>
-<dt>brew（只有 macOS）</dt>
-<dd>第 2 步那一行装的。它会先装 Xcode 命令行工具，可能要等十几分钟，中途弹窗点安装。装完按它打印的两行把 brew 加进 PATH。</dd>
-<dt>git</dt>
-<dd>检查：<code>git --version</code>。macOS 用 brew 装；Windows 用 winget 或官网安装包；Linux <code>sudo apt install git</code>。</dd>
-<dt>node / npm / npx</dt>
-<dd>检查：<code>node --version</code>，要 v18 以上。三个是一起装的，有 node 就有 npm 和 npx。Windows 装完必须重开 PowerShell。</dd>
-<dt>gh</dt>
-<dd>检查：<code>gh --version</code>。GitHub 的命令行工具。装法同 git。登录用第 3 步的命令。</dd>
-<dt>curl</dt>
-<dd>macOS 和 Linux 自带。Windows 上本页不用它；如果别处看到 <code>curl</code>，在 PowerShell 里要写 <code>curl.exe</code>，因为 <code>curl</code> 在 PowerShell 里是另一个命令的别名。</dd>
-<dt>irm / iex（只有 Windows）</dt>
-<dd>PowerShell 自带，作用是下载并运行安装脚本。报"禁止运行脚本"见第 5 步。</dd>
-<dt>sudo（只有 macOS / Linux）</dt>
-<dd>以管理员身份执行，会要你的登录密码，输入时不显示是正常的。本页只在 Linux 装工具时用到；流程里没写 <code>sudo</code> 的命令不要自己加。</dd>
-<dt>claude</dt>
-<dd>检查：<code>claude --version</code>。第 5 步装的。装完找不到：重开终端；Windows 还找不到就重启一次电脑。</dd>
-<dt>ssh（可选）</dt>
-<dd>本页用 HTTPS 登录 GitHub，不需要 ssh。以后需要时 Windows 在 设置 → 应用 → 可选功能 里加"OpenSSH 客户端"，macOS / Linux 自带。</dd>
-</dl>
-</section>
-
-<section class="step" id="glossary">
-<h2>这些词是什么</h2>
-<dl>
-<dt>终端</dt><dd>只有文字的窗口，你打命令它执行。</dd>
-<dt>Git / GitHub</dt><dd>Git 是代码的修改历史记录本，装在你电脑上；GitHub 是把记录放到网上共享的网站，也是我们的身份系统。</dd>
-<dt>两步验证（2FA）</dt><dd>登录时除密码外再验一次手机验证器，公司强制。</dd>
-<dt>Node.js / npx</dt><dd>Node.js 是一个运行环境，很多工具靠它跑；npx 是用一条命令临时运行一个工具。</dd>
-<dt>gh</dt><dd>GitHub 的命令行工具，让终端能登录和操作 GitHub。</dd>
-<dt>Claude Code / Codex</dt><dd>住在终端里的 AI 编程助手，你说要什么，它动手并解释。</dd>
-<dt>SOP</dt><dd>公司里"这件事怎么做"的标准流程，每条都有 AI 能执行的版本。</dd>
-<dt>Morpheus</dt><dd>公司 Telegram 群里的 bot，负责入职、申请权限、查流程。</dd>
-<dt>Teleport</dt><dd>以后访问服务器和数据库的统一大门，现在还没上线。</dd>
-</dl>
-</section>
-
-<footer>本页只放通用步骤，不含任何内部信息。发现步骤过期，告诉你的引路人，或进群后对 AI 说"这一页有问题"。</footer>
-</main>
-<script>
-(function(){
-  var KEY="ali-start-v1";
-  var state={};try{state=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
-  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
-  // 系统选择
-  var osBtns=document.querySelectorAll("#os button");
-  function detect(){var u=navigator.userAgent||"";if(/Windows/i.test(u))return"win";if(/Mac|iPhone|iPad/i.test(u))return"mac";if(/Linux|Android/i.test(u))return"linux";return"mac"}
-  function setOS(os){state.os=os;save();osBtns.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.os===os?"true":"false")});document.querySelectorAll(".panel").forEach(function(p){p.classList.toggle("on",p.dataset.os===os)})}
-  osBtns.forEach(function(b){b.addEventListener("click",function(){setOS(b.dataset.os)})});
-  setOS(state.os||detect());
-  // 复制按钮
-  document.querySelectorAll("pre").forEach(function(pre){
-    var btn=document.createElement("button");btn.className="copy";btn.type="button";btn.textContent="复制";
-    btn.addEventListener("click",function(){
-      var text=pre.querySelector("code").textContent;
-      function done(){btn.textContent="已复制";btn.classList.add("ok");setTimeout(function(){btn.textContent="复制";btn.classList.remove("ok")},1500)}
-      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done,fallback)}else{fallback()}
-      function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){btn.textContent="手动复制"}document.body.removeChild(ta)}
-    });
-    pre.appendChild(btn);
-  });
-  // 进度
-  var boxes=document.querySelectorAll("section.step[data-step] input[type=checkbox]");
-  function render(){var n=0;boxes.forEach(function(c){var s=c.closest("section").dataset.step;c.checked=!!(state.done&&state.done[s]);if(c.checked)n++;c.closest("section").classList.toggle("done",c.checked)});document.getElementById("ptext").textContent="已完成 "+n+" / "+boxes.length;document.getElementById("pbar").style.width=(100*n/boxes.length)+"%"}
-  boxes.forEach(function(c){c.addEventListener("change",function(){state.done=state.done||{};state.done[c.closest("section").dataset.step]=c.checked;save();render()})});
-  render();
-})();
-</script>
-</body>
-</html>
+<section class="step reference" id="complete" hidden><div class="completion-symbol" aria-hidden="true">✓</div><p class="eyebrow">READY FOR DAY ONE</p><h2 tabindex="-1">准备就绪，欢迎加入。</h2><p>你已完成全部 11 步。接下来，让 AI 带着你了解公司流程，开始第一件事。</p><div class="next-links"><article><h3>继续和 AI 工作</h3><p>打开 Claude Code 或 Codex，说「我是新人，从哪开始」。</p></article><article><h3>随时找到团队</h3><p>「求助」提问，「公告」看通知；入职和权限进度在 Morpheus 私聊查看。</p></article></div><a class="button secondary" href="#s8">回看第一句话</a><p class="muted">这里的进度由你确认；实际入职状态以 Morpheus 看板为准。</p></section>
+<section class="step reference" id="tools"><p class="eyebrow">YOUR TOOLKIT</p><h2 tabindex="-1">工作工具，都在这里</h2><p>知道每个工具用来做什么，再按指引安装。账号由你自己持有，付费方案先和引路人确认。</p><div class="tool-grid">
+<a class="tool-card" href="#telegram"><span class="tool-icon">↗</span><div><h3>Telegram <small>团队沟通</small></h3><p>「求助」提问、「公告」看通知，私聊 bot 办入职。</p></div><span class="tool-badge">先安装</span></a>
+<a class="tool-card" href="#s2"><span class="tool-icon">⌘</span><div><h3>Git · Node.js · gh</h3><p>记录修改、运行安装器、连接 GitHub。</p></div><span class="tool-badge">基础工具</span></a>
+<a class="tool-card" href="#s5"><span class="tool-icon">✳</span><div><h3>Claude Code</h3><p>使用 Claude 账号，在终端和 AI 工作。</p></div><span class="tool-badge">AI 助手</span></a>
+<a class="tool-card" href="#s9"><span class="tool-icon">&gt;_</span><div><h3>Codex CLI</h3><p>使用 ChatGPT 账号，在终端和 AI 工作。</p></div><span class="tool-badge">AI 助手</span></a>
+<a class="tool-card" href="#s10"><span class="tool-icon">▣</span><div><h3>Codex Desktop</h3><p>在桌面窗口中管理项目和 AI 对话。</p></div><span class="tool-badge">桌面入口</span></a>
+<a class="tool-card" href="#teleport"><span class="tool-icon">⇄</span><div><h3>Teleport Connect · tsh</h3><p>访问公司服务器、数据库等资源。</p></div><span class="tool-badge pending">待开通</span></a>
+</div><a class="button secondary return-step" href="#s0">返回当前步骤 →</a></section>
+<section class="step reference" id="telegram"><p class="eyebrow">STAY CONNECTED</p><h2 tabindex="-1">先装 Telegram，联系上团队</h2><p>公司沟通、入职通知和求助都在 Telegram。先在手机登录，再把同一个账号连到电脑。</p><h3>1. 手机安装并登录</h3><p>从 <a href="https://telegram.org/apps" target="_blank" rel="noopener">Telegram 官方应用列表 ↗</a> 进入 iOS 或 Android 的下载入口。打开应用，用自己的手机号按提示完成注册或登录。</p><h3>2. 安装电脑客户端</h3><p>打开 <a href="https://desktop.telegram.org/" target="_blank" rel="noopener">Telegram Desktop 官方下载页 ↗</a>，选择 macOS、Windows 或 Linux，下载并安装。</p><p>启动桌面端，按界面提示用手机中的 Telegram 扫码登录，或选择手机号登录。确认手机和电脑使用同一个账号。</p><h3>3. 找到引路人，加入公司群</h3><p>把你的 Telegram 用户名私下告诉引路人，请对方拉你进群。群里只有「求助」和「公告」两个入口：有问题到「求助」，团队通知和流程更新看「公告」。请引路人发给你 Morpheus 的名片或私聊入口，之后按 <a href="#s6">加入公司组织</a> 绑定 GitHub。</p><div class="check"><b>完成标准：</b>手机和电脑都能打开 Telegram，用同一个账号看到消息，并能联系到引路人。</div><details><summary>收不到验证码或无法连接？</summary><p>按登录页面提示检查验证码接收方式；已登录的 Telegram 设备也可能收到登录消息。网络不可用时联系引路人确认公司网络方案，不要把登录码转发给别人。</p></details><a class="button secondary return-step" href="#s0">返回当前步骤 →</a></section>
+<section class="step reference" id="teleport"><p class="eyebrow">INFRASTRUCTURE ACCESS</p><h2 tabindex="-1">Teleport：访问公司资源的入口</h2><div class="tip waiting"><b>公司入口尚未上线 · 暂不计入今天的完成进度</b><p>先了解用途。安装版本、公司连接地址和岗位权限，由管理员在上线后提供。</p></div><p><b>Teleport Connect</b> 是桌面客户端，<b>tsh</b> 是终端客户端；两者用于访问公司授权给你的服务器、数据库等资源。</p><h3>入口开通后，按这个顺序准备</h3><ol><li>向管理员确认公司入口和匹配的客户端版本。</li><li>通过 <a href="https://goteleport.com/docs/connect-your-client/teleport-clients/teleport-connect/" target="_blank" rel="noopener">官方 Teleport Connect 安装说明 ↗</a> 下载对应系统的客户端：macOS 用 .dmg，Windows 用 .exe，Linux 按发行版使用 .deb / .rpm。</li><li>在 Connect 添加管理员提供的公司入口，按公司指引使用 GitHub 登录。</li><li>需要在终端访问资源时，按官方说明把 Connect 自带的 <code>tsh</code> 加入 PATH；然后重开终端检查。</li></ol><pre><code>tsh version</code></pre><pre><code>tsh status</code></pre><div class="check"><b>开通后的完成标准：</b>Connect 能登录公司入口，且能看到自己已获授权的资源；使用 CLI 时，tsh status 显示对应的登录状态。</div><details><summary>已经安装，为什么还看不到资源？</summary><p>安装客户端不会自动获得公司权限。入口上线后，按岗位需要私聊 Morpheus 发 <code>/request</code> 申请访问，审批完成后再检查。</p></details><a class="button secondary return-step" href="#s0">返回当前步骤 →</a></section>
+<section class="step reference" id="commands"><p class="eyebrow">QUICK REFERENCE</p><h2 tabindex="-1">常用命令，随时回来查</h2><p>在普通终端中执行，每次一条。装完工具后重开终端，再检查版本。</p><dl><dt>打开终端</dt><dd>Mac：⌘ + 空格，搜索「终端」。Windows：开始菜单搜索「PowerShell」。Linux：打开系统终端。</dd><dt>检查基础工具</dt><dd><pre><code>git --version</code></pre><pre><code>node --version</code></pre><pre><code>gh --version</code></pre>安装方法见 <a href="#s2">装好基础工具</a>，Node.js 选受支持的 LTS 版本。</dd><dt>检查 GitHub 登录</dt><dd><pre><code>gh auth status</code></pre>登录方法见 <a href="#s3">让终端登录 GitHub</a>。</dd><dt>检查和打开 Claude Code</dt><dd><pre><code>claude --version</code></pre><pre><code>claude</code></pre></dd><dt>检查 Codex</dt><dd><pre><code>codex --version</code></pre><pre><code>codex login status</code></pre>安装见 <a href="#s9">Codex CLI</a> 和 <a href="#s10">Codex Desktop</a>。</dd><dt>检查 Teleport（公司入口上线后）</dt><dd><pre><code>tsh version</code></pre><pre><code>tsh status</code></pre>当前状态与安装说明见 <a href="#teleport">Teleport</a>。</dd><dt>检查公司流程安装情况</dt><dd><pre><code>npx github:Ali-Matrix-Technologies/ali-sop doctor</code></pre>需先完成 <a href="#s7">接入公司流程</a>。Windows 若 npx.ps1 被阻止，可改用 npx.cmd。</dd></dl><p><a href="#glossary">有不认识的词？查看名词解释 →</a></p><a class="button secondary return-step" href="#s0">返回当前步骤 →</a></section>
+<section class="step reference" id="glossary"><p class="eyebrow">GOOD TO KNOW</p><h2 tabindex="-1">这些词是什么意思？</h2><dl><dt>终端 / PowerShell</dt><dd>输入文字命令、让电脑执行操作的窗口。PowerShell 是 Windows 上常用的命令环境。</dd><dt>Git / GitHub</dt><dd>Git 是电脑上的修改记录工具；GitHub 用来在线共享代码和流程，并管理访问权限。</dd><dt>两步验证（2FA）/ 恢复码</dt><dd>两步验证在密码之外增加一次身份验证；恢复码用于无法使用验证器时恢复访问，要安全保存。</dd><dt>Homebrew / winget</dt><dd>分别在 macOS、Windows 上用命令安装软件的工具。</dd><dt>Node.js / npm / npx</dt><dd>Node.js 是运行工具的环境；安装它时一般会同时装好 npm 和 npx，npx 可以用一条命令运行安装器。LTS 表示长期支持版本。</dd><dt>GitHub CLI（gh）</dt><dd>让你在终端中登录、操作 GitHub 的工具。</dd><dt>Claude / Claude Code</dt><dd>Claude 是 AI 服务，Claude Code 是在电脑上协助你完成工作的 AI 工具，使用你的 Claude 账号登录。</dd><dt>SOP / 插件</dt><dd>SOP 是「这件事怎么做」的标准流程。公司插件让 AI 能读取这些流程并带你执行。</dd><dt>Codex CLI / Codex Desktop</dt><dd>Codex 的终端入口和桌面工作区，使用 ChatGPT 账号。安装指引在 <a href="#tools">工具箱</a>。</dd><dt>Teleport Connect / tsh</dt><dd>访问公司基础设施的桌面与终端客户端。当前公司入口尚未上线，等管理员通知再连接。</dd><dt>Morpheus / 引路人</dt><dd>Morpheus 是公司 Telegram bot，处理入职和权限申请；引路人是拉你进群、帮助你开始的同事。</dd></dl><a class="button secondary return-step" href="#s0">返回当前步骤 →</a></section>
+<section class="step reference" id="help"><p class="eyebrow">WE ARE HERE TO HELP</p><h2 tabindex="-1">把卡住的地方说清楚，就好。</h2><p>还没进群，直接联系引路人；已经进群，到 Telegram 主群的「求助」话题发消息。</p><h3>复制这份模板，补全后发送</h3><pre data-context="求助消息 · 发给引路人或主群「求助」"><code id="help-template">我在完成 Ali Matrix 新人指南。
+当前步骤：[填写步骤名称]
+电脑系统：[macOS / Windows / Linux]
+我做了什么：[填写操作或命令]
+实际结果：[粘贴完整报错，可附截图]
+我已经试过：[填写尝试过的办法]</code></pre><p class="muted">发送前去掉密码、验证码、恢复码、令牌和银行卡信息。</p><a class="button secondary return-step" href="#s0">返回当前步骤 →</a></section>
+<div class="workspace-footer"><a href="#tools">工具箱</a><span>一步一步来，就会到。</span><a href="#glossary">名词解释</a><a href="#commands">命令速查</a></div></main></div><footer class="site-footer"><span>ALI MATRIX <span class="footer-separator">/</span> YOUR FIRST DAY</span><p>步骤有变化？告诉你的引路人，我们一起把指南变得更好。</p></footer></div><div id="announcement" class="sr-only" role="status" aria-live="polite"></div><div id="toast" class="toast" role="status" hidden></div></body></html>
