@@ -1,4 +1,4 @@
-# Generated from infra/telegram-bot/scripts/collect_work.py; do not edit inline Python.
+# Generated from infra/telegram-bot/scripts/collect_work.py and confirmed_commits.json; do not edit inline Python.
 name: Sync employee work board
 on:
   push:
@@ -38,6 +38,22 @@ jobs:
           import urllib.request
           from datetime import datetime, timedelta, timezone
 
+          # Replaced by render_workflow.py with only this source's reviewed, finite SHA list.
+          # Raw Git names/emails never grant attribution; an existing GitHub actor wins.
+          CONFIRMED_COMMITS = {'ali-matrix-technologies/start': {'actor': {'id': 6834942, 'login': 'haojianggod', 'type': 'User'},
+                                             'commits': ['032848e1808b0f0220e6fc2fbfbbdf2999a641ad',
+                                                         '346bb68f0b3ea36bb9d561458d1da0ef8c7f03f4',
+                                                         '4d337e3a55a03950ae6864e9a53451543e66698e',
+                                                         '5affbf92dc5c119aa96a84591b818754eddd5f66',
+                                                         '98d4434a7dcd748479aa9667edc090dd7ab1bcc3',
+                                                         'db4b4daf8235de3fb65cd3808b593738aaa5abb0'],
+                                             'confirmation': {'byId': 6834942,
+                                                              'on': '2026-09-13',
+                                                              'reason': 'Repository owner confirmed these historical '
+                                                                        'commits as their own; former commit email is '
+                                                                        'no longer accessible. Work activity '
+                                                                        'attribution only.'}}}
+
           PR_QUERY = """query($owner:String!,$repo:String!,$cursor:String) {
             repository(owner:$owner,name:$repo) {
               pullRequests(first:50,after:$cursor,orderBy:{field:UPDATED_AT,direction:DESC}) {
@@ -59,13 +75,15 @@ jobs:
               # Match the receiver's JavaScript UTF-16 length limit, including emoji.
               return text.encode("utf-16-le")[:400].decode("utf-16-le", errors="ignore")
 
-          def collect(read, repo, sync_tasks=True, now=None):
+          def collect(read, repo, sync_tasks=True, now=None, confirmed_commits=None):
               now = now or datetime.now(timezone.utc)
               since = now - timedelta(days=90)
               since_iso = since.isoformat().replace("+00:00", "Z")
               tasks, activities = [], {}
               truncated = activity_truncated = False
               unattributed = 0
+              confirmation = (CONFIRMED_COMMITS if confirmed_commits is None else confirmed_commits).get(repo.lower(), {})
+              confirmed_shas = set(confirmation.get("commits", []))
 
               def recent(at):
                   return bool(at) and since <= datetime.fromisoformat(at.replace("Z", "+00:00")) <= now + timedelta(minutes=1)
@@ -145,7 +163,12 @@ jobs:
                       if len(commit.get("parents", [])) > 1:  # Merge action has its own PR event.
                           continue
                       title = short_title((commit["commit"]["message"].splitlines() or [""])[0].strip() or commit["sha"][:7])
-                      record("commit:" + commit["sha"], commit.get("author"), "commit", commit["commit"]["author"]["date"], sha=commit["sha"], title=title)
+                      actor = commit.get("author")
+                      attribution = {}
+                      if actor is None and commit["sha"] in confirmed_shas:
+                          actor = confirmation["actor"]
+                          attribution = {"attribution": "confirmed"}
+                      record("commit:" + commit["sha"], actor, "commit", commit["commit"]["author"]["date"], sha=commit["sha"], title=title, **attribution)
                   if len(rows) < 100:
                       break
                   if page == 10:
