@@ -8,5 +8,5 @@ jobs:
       - name: 公开页面不得含内部信息
         run: |
           set -e
-          ! grep -rnE '\{\{|t\.me/\+|@[A-Za-z0-9_]{4,}|workers\.dev|sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|BEGIN [A-Z ]*PRIVATE KEY' --include='*.md' . || { echo '发现疑似内部信息，见上'; exit 1; }
+          ! grep -rnE '\{\{|t\.me/\+|@[A-Za-z0-9_]{4,}|workers\.dev|sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|BEGIN [A-Z ]*PRIVATE KEY' --include='*.md' --include='*.html' . || { echo '发现疑似内部信息，见上'; exit 1; }
           echo ok

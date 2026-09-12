@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Ali Matrix 新人第一天</title>
+<meta name="description" content="从零开始：注册账号、装工具、进群、让 AI 带你做。每一步都有怎么确认和不行找谁。">
+<style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#6e6e73;--card:#f5f5f7;--line:#e5e5ea;--accent:#2563eb;--accent-fg:#fff;--ok:#16a34a;--code:#0f172a;--code-fg:#e2e8f0}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0b0d;--fg:#f2f2f4;--muted:#9a9aa3;--card:#17171a;--line:#2a2a2f;--accent:#3b82f6;--code:#0a0f1c;--code-fg:#e2e8f0}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif}
+a{color:var(--accent);word-break:break-all}
+main{max-width:720px;margin:0 auto;padding:16px 16px calc(40px + env(safe-area-inset-bottom))}
+header{padding:8px 0 4px}
+h1{font-size:26px;line-height:1.25;margin:8px 0 6px}
+.lead{color:var(--muted);margin:0 0 12px}
+.tip{background:var(--card);border-left:4px solid var(--accent);padding:10px 14px;border-radius:8px;margin:12px 0}
+.os{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.os span{color:var(--muted);font-size:14px}
+.os button{font:inherit;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;min-height:40px}
+.os button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.progress{display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;font-size:14px;color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:8px}.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+section.step{background:var(--card);border-radius:14px;padding:14px 16px;margin:14px 0}
+section.step h2{display:flex;align-items:center;gap:10px;font-size:19px;margin:0 0 8px}
+.num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-fg);display:inline-flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+section.step.done .num{background:var(--ok)}
+section.step p{margin:8px 0}
+section.step ol,section.step ul{padding-left:22px;margin:8px 0}
+section.step li{margin:6px 0}
+.panel{display:none}.panel.on{display:block}
+.pane-title{font-weight:600;margin:10px 0 4px}
+.check{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.check b{color:var(--ok)}
+label.done{display:flex;align-items:center;gap:10px;margin-top:12px;font-weight:600;cursor:pointer;min-height:44px}
+label.done input{width:22px;height:22px;accent-color:var(--ok)}
+.who{color:var(--muted);font-size:14px}
+pre{position:relative;background:var(--code);color:var(--code-fg);border-radius:10px;padding:12px 88px 12px 14px;overflow-x:auto;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0;-webkit-overflow-scrolling:touch}
+pre code{white-space:pre}
+.copy{position:absolute;top:8px;right:8px;font:inherit;font-size:13px;padding:6px 10px;border-radius:8px;border:0;background:rgba(255,255,255,.14);color:var(--code-fg);cursor:pointer;min-height:32px}
+.copy.ok{background:var(--ok);color:#fff}
+code:not(pre code){background:rgba(127,127,127,.18);padding:1px 6px;border-radius:5px;font-size:.92em}
+details{margin:10px 0}summary{cursor:pointer;font-weight:600;min-height:32px}
+dl{margin:8px 0}dt{font-weight:600;margin-top:10px}dd{margin:2px 0 0 0;color:var(--muted)}
+footer{color:var(--muted);font-size:13px;margin-top:24px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}.toc a{font-size:13px;padding:6px 10px;border-radius:999px;background:var(--card);text-decoration:none;color:var(--fg);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>新人第一天</h1>
+<p class="lead">你好，欢迎加入 Ali Matrix。这一页是你在拥有任何账号之前唯一需要看的东西。按顺序做，每一步都有<b>怎么确认</b>和<b>不行找谁</b>。全部做完大约 1 到 2 小时，之后你就有一个 AI 助手带着你做后面的所有事，不需要再找人教。</p>
+<div class="tip">你不需要会编程，也不需要用过 AI。看不懂的词，页面最下面有<a href="#glossary">名词解释</a>。命令块右上角都有"复制"按钮，复制后粘贴到终端按回车。</div>
+<nav class="toc" aria-label="目录">
+<a href="#s0">0 准备</a><a href="#s1">1 GitHub</a><a href="#s2">2 装工具</a><a href="#s3">3 登录</a><a href="#s4">4 Claude 账号</a><a href="#s5">5 Claude Code</a><a href="#s6">6 进群</a><a href="#s7">7 接入流程</a><a href="#s8">8 第一句话</a>
+</nav>
+</header>
+
+<div class="os" id="os">
+<span>你的电脑是：</span>
+<button data-os="mac">macOS</button><button data-os="win">Windows</button><button data-os="linux">Linux</button>
+</div>
+<div class="progress"><span id="ptext">已完成 0 / 9</span><span>进度只存在这台设备上</span></div>
+<div class="bar"><i id="pbar"></i></div>
+
+<section class="step" id="s0" data-step="0">
+<h2><span class="num">0</span>准备</h2>
+<ul>
+<li>一台自己的电脑，macOS、Windows、Linux 都行。</li>
+<li>一个能收邮件的邮箱。用哪个邮箱注册各种账号，以<b>拉你进群的同事</b>告诉你的为准，本页下面统称"你的引路人"。</li>
+<li>能正常打开 <a href="https://github.com" target="_blank" rel="noopener">github.com</a> 和 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 的网络。打不开先别自己折腾，问引路人拿公司的网络方案。</li>
+<li>手机上装一个验证器应用，比如 Google Authenticator、Microsoft Authenticator 或 1Password，后面开两步验证要用。</li>
+</ul>
+<p class="who">不行找谁：你的引路人。</p>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s1" data-step="1">
+<h2><span class="num">1</span>注册 GitHub</h2>
+<p>GitHub 是放代码和流程记录的网站，也是公司的"身份系统"：你能看什么、改什么，由它决定。</p>
+<ol>
+<li>打开 <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>，用第 0 步的邮箱注册。</li>
+<li>打开 <a href="https://github.com/settings/security" target="_blank" rel="noopener">github.com/settings/security</a>，开启 Two-factor authentication，选验证器应用，把恢复码保存到密码管理器或安全的地方。<b>公司组织强制两步验证，不开的话后面加不进来。</b></li>
+<li>记住你的 GitHub 用户名，后面要报给 bot。</li>
+</ol>
+<div class="check"><b>怎么确认：</b>在 settings/security 页看到两步验证已开启。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s2" data-step="2">
+<h2><span class="num">2</span>装三个基础工具</h2>
+<p>终端是用文字命令操控电脑的窗口，AI 助手就住在里面。要装的三个工具：<code>git</code> 记录代码修改，<code>Node.js</code> 运行一些工具，<code>gh</code> 让终端能操作 GitHub。先在上面选你的电脑系统。</p>
+<div class="panel" data-os="mac">
+<div class="pane-title">macOS</div>
+<ol>
+<li>打开"终端"应用：按 <code>⌘ + 空格</code>，输入 终端，回车。</li>
+<li>装 Homebrew，复制整行到终端回车，按提示输密码（输入时不显示，正常）：
+<pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+装完它会打印两行让你复制执行的命令，照做。</li>
+<li>装三个工具：
+<pre><code>brew install git node gh</code></pre></li>
+</ol>
+</div>
+<div class="panel" data-os="win">
+<div class="pane-title">Windows</div>
+<ol>
+<li>开始菜单搜索 PowerShell，右键"以管理员身份运行"。</li>
+<li>依次执行三行，每行回车等它装完再下一行：
+<pre><code>winget install --id Git.Git -e</code></pre>
+<pre><code>winget install --id OpenJS.NodeJS.LTS -e</code></pre>
+<pre><code>winget install --id GitHub.cli -e</code></pre></li>
+</ol>
+</div>
+<div class="panel" data-os="linux">
+<div class="pane-title">Linux（Ubuntu / Debian）</div>
+<ol>
+<li>打开终端，执行：
+<pre><code>sudo apt update &amp;&amp; sudo apt install -y git curl</code></pre>
+<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code></pre></li>
+<li>关掉终端重新打开，执行：
+<pre><code>nvm install --lts</code></pre></li>
+<li>gh 按官方说明安装：<a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank" rel="noopener">install_linux.md</a>。</li>
+</ol>
+</div>
+<div class="check"><b>怎么确认：</b><b>关掉终端，重新打开一个</b>（不做这一步下面会说找不到命令），执行：
+<pre><code>git --version &amp;&amp; node --version &amp;&amp; gh --version</code></pre>
+三行都打印出版本号，node 的版本 v18 以上。</div>
+<p class="who">常见问题：提示 command not found，九成是没重开终端。</p>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s3" data-step="3">
+<h2><span class="num">3</span>让终端登录 GitHub</h2>
+<pre><code>gh auth login -h github.com -p ssh -w</code></pre>
+<p>一路选默认：GitHub.com、SSH、Yes 生成密钥、浏览器登录。登录完再执行：</p>
+<pre><code>gh auth setup-git</code></pre>
+<div class="check"><b>怎么确认：</b>执行 <code>gh auth status</code>，显示 Logged in to github.com。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s4" data-step="4">
+<h2><span class="num">4</span>注册 Claude 并订阅</h2>
+<p>Claude Code 是我们主要用的 AI 助手，第一天只装这一个。它需要一个 Claude 账号，费用你先付，公司报销，报销流程进群后 AI 会告诉你。</p>
+<ol>
+<li>打开 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>，用第 0 步的邮箱注册。</li>
+<li>进 Settings → Billing，订阅 Pro（日常够用）或 Max（重度写代码）。</li>
+<li>账单在同一页能下载，留着报销。</li>
+</ol>
+<div class="check"><b>怎么确认：</b>Billing 页显示订阅生效。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s5" data-step="5">
+<h2><span class="num">5</span>装 Claude Code 并登录</h2>
+<div class="panel" data-os="mac"><div class="pane-title">macOS 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
+<div class="panel" data-os="linux"><div class="pane-title">Linux 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
+<div class="panel" data-os="win"><div class="pane-title">Windows PowerShell</div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></div>
+<p>关掉终端重新打开，执行 <code>claude</code>，按提示在浏览器登录，回到终端看到对话框就成了。</p>
+<div class="check"><b>怎么确认：</b>执行 <code>claude --version</code> 打印版本号。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s6" data-step="6">
+<h2><span class="num">6</span>进群，绑定，等审批</h2>
+<ol>
+<li>让引路人把你拉进公司 Telegram 群。进群后一个叫 Morpheus 的 bot 会 @你，给你一个"开始入职"按钮。</li>
+<li>点按钮进入和 Morpheus 的私聊，发 <code>/start</code>。它会给你一个 GitHub 设备码链接：浏览器打开、输入代码、用你第 1 步的 GitHub 账号授权，回来点"我已授权"。</li>
+<li>管理员在群里点一下批准，你会收到 GitHub 组织的邀请，去 <a href="https://github.com/orgs/Ali-Matrix-Technologies/invitation" target="_blank" rel="noopener">接受邀请</a>。</li>
+<li>私聊里点左下角菜单"入门看板"，能看到你走到哪一步了。</li>
+</ol>
+<div class="check"><b>怎么确认：</b>Morpheus 私聊你"已接受邀请，入职单完成"。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s7" data-step="7">
+<h2><span class="num">7</span>一条命令接入公司流程</h2>
+<pre><code>npx github:Ali-Matrix-Technologies/sop</code></pre>
+<p>问 Ok to proceed 就按 <code>y</code>。它会检查前面几步、把公司流程库拉到本机、给 Claude Code 装上引导技能。</p>
+<div class="check"><b>怎么确认：</b>最后打印"完成"。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="s8" data-step="8">
+<h2><span class="num">8</span>对 AI 说第一句话</h2>
+<p>终端执行 <code>claude</code> 进入对话，输入：</p>
+<pre><code>我是新人，从哪开始</code></pre>
+<p>它会列出公司的所有流程，并带你一步步做。之后遇到任何"这里怎么做"，先问它，再问人。它问你"要不要我带你做"，说要。</p>
+<div class="tip"><b>从此以后：</b>卡住了在群里的"求助"话题发消息；想申请权限私聊 Morpheus 发 <code>/request</code>；想看流程发 <code>/sops</code>；想看进度点菜单"入门看板"。</div>
+<label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="glossary">
+<h2>这些词是什么</h2>
+<dl>
+<dt>终端</dt><dd>只有文字的窗口，你打命令它执行。</dd>
+<dt>Git / GitHub</dt><dd>Git 是代码的修改历史记录本，装在你电脑上；GitHub 是把记录放到网上共享的网站，也是我们的身份系统。</dd>
+<dt>两步验证（2FA）</dt><dd>登录时除密码外再验一次手机验证器，公司强制。</dd>
+<dt>Node.js / npx</dt><dd>Node.js 是一个运行环境，很多工具靠它跑；npx 是用一条命令临时运行一个工具。</dd>
+<dt>gh</dt><dd>GitHub 的命令行工具，让终端能登录和操作 GitHub。</dd>
+<dt>Claude Code / Codex</dt><dd>住在终端里的 AI 编程助手，你说要什么，它动手并解释。</dd>
+<dt>SOP</dt><dd>公司里"这件事怎么做"的标准流程，每条都有 AI 能执行的版本。</dd>
+<dt>Morpheus</dt><dd>公司 Telegram 群里的 bot，负责入职、申请权限、查流程。</dd>
+<dt>Teleport</dt><dd>以后访问服务器和数据库的统一大门，现在还没上线。</dd>
+</dl>
+</section>
+
+<footer>本页只放通用步骤，不含任何内部信息。发现步骤过期，告诉你的引路人，或进群后对 AI 说"这一页有问题"。</footer>
+</main>
+<script>
+(function(){
+  var KEY="ali-start-v1";
+  var state={};try{state=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  // 系统选择
+  var osBtns=document.querySelectorAll("#os button");
+  function detect(){var u=navigator.userAgent||"";if(/Windows/i.test(u))return"win";if(/Mac|iPhone|iPad/i.test(u))return"mac";if(/Linux|Android/i.test(u))return"linux";return"mac"}
+  function setOS(os){state.os=os;save();osBtns.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.os===os?"true":"false")});document.querySelectorAll(".panel").forEach(function(p){p.classList.toggle("on",p.dataset.os===os)})}
+  osBtns.forEach(function(b){b.addEventListener("click",function(){setOS(b.dataset.os)})});
+  setOS(state.os||detect());
+  // 复制按钮
+  document.querySelectorAll("pre").forEach(function(pre){
+    var btn=document.createElement("button");btn.className="copy";btn.type="button";btn.textContent="复制";
+    btn.addEventListener("click",function(){
+      var text=pre.querySelector("code").textContent;
+      function done(){btn.textContent="已复制";btn.classList.add("ok");setTimeout(function(){btn.textContent="复制";btn.classList.remove("ok")},1500)}
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done,fallback)}else{fallback()}
+      function fallback(){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){btn.textContent="手动复制"}document.body.removeChild(ta)}
+    });
+    pre.appendChild(btn);
+  });
+  // 进度
+  var boxes=document.querySelectorAll("section.step[data-step] input[type=checkbox]");
+  function render(){var n=0;boxes.forEach(function(c){var s=c.closest("section").dataset.step;c.checked=!!(state.done&&state.done[s]);if(c.checked)n++;c.closest("section").classList.toggle("done",c.checked)});document.getElementById("ptext").textContent="已完成 "+n+" / "+boxes.length;document.getElementById("pbar").style.width=(100*n/boxes.length)+"%"}
+  boxes.forEach(function(c){c.addEventListener("change",function(){state.done=state.done||{};state.done[c.closest("section").dataset.step]=c.checked;save();render()})});
+  render();
+})();
+</script>
+</body>
+</html>
