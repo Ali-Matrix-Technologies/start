@@ -5,8 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 公开页面不得含内部信息
-        run: |
-          set -e
-          ! grep -rnE '\{\{|t\.me/\+|@[A-Za-z0-9_]{4,}|workers\.dev|sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|BEGIN [A-Z ]*PRIVATE KEY' --include='*.md' --include='*.html' . || { echo '发现疑似内部信息，见上'; exit 1; }
-          echo ok
+      - name: 检查公开内容、步骤顺序和本地链接
+        run: python3 scripts/check.py
+      - name: 检查交互脚本语法
+        run: node --check app.js
