@@ -46,6 +46,9 @@ code:not(pre code){background:rgba(127,127,127,.18);padding:1px 6px;border-radiu
 details{margin:10px 0}summary{cursor:pointer;font-weight:600;min-height:32px}
 dl{margin:8px 0}dt{font-weight:600;margin-top:10px}dd{margin:2px 0 0 0;color:var(--muted)}
 footer{color:var(--muted);font-size:13px;margin-top:24px}
+figure{margin:12px 0}figure img{display:block;max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);background:#fff}figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.sub{font-weight:600;margin:12px 0 4px}
+kbd{font:inherit;font-size:.9em;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--card)}
 .toc{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}.toc a{font-size:13px;padding:6px 10px;border-radius:999px;background:var(--card);text-decoration:none;color:var(--fg);border:1px solid var(--line)}
 </style>
 </head>
@@ -54,9 +57,9 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <header>
 <h1>新人第一天</h1>
 <p class="lead">你好，欢迎加入 Ali Matrix。这一页是你在拥有任何账号之前唯一需要看的东西。按顺序做，每一步都有<b>怎么确认</b>和<b>不行找谁</b>。全部做完大约 1 到 2 小时，之后你就有一个 AI 助手带着你做后面的所有事，不需要再找人教。</p>
-<div class="tip">你不需要会编程，也不需要用过 AI。看不懂的词，页面最下面有<a href="#glossary">名词解释</a>。命令块右上角都有"复制"按钮，复制后粘贴到终端按回车。</div>
+<div class="tip">你不需要会编程，也不需要用过 AI。看不懂的词，页面最下面有<a href="#glossary">名词解释</a>。命令块右上角都有"复制"按钮，复制后粘贴到终端按回车。每一步做完勾一下，进度存在这台设备上。</div>
 <nav class="toc" aria-label="目录">
-<a href="#s0">0 准备</a><a href="#s1">1 GitHub</a><a href="#s2">2 装工具</a><a href="#s3">3 登录</a><a href="#s4">4 Claude 账号</a><a href="#s5">5 Claude Code</a><a href="#s6">6 进群</a><a href="#s7">7 接入流程</a><a href="#s8">8 第一句话</a><a href="#commands">命令速查</a>
+<a href="#s0">0 准备</a><a href="#s1">1 GitHub</a><a href="#s2">2 装工具</a><a href="#s3">3 登录</a><a href="#s4">4 Claude 账号</a><a href="#s5">5 Claude Code</a><a href="#s6">6 进群</a><a href="#s7">7 接入流程</a><a href="#s8">8 第一句话</a><a href="#commands">命令速查</a><a href="#glossary">名词</a>
 </nav>
 </header>
 
@@ -69,78 +72,133 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 
 <section class="step" id="s0" data-step="0">
 <h2><span class="num">0</span>准备</h2>
+<div class="sub">要有的东西</div>
 <ul>
 <li>一台自己的电脑，macOS、Windows、Linux 都行。</li>
 <li>一个能收邮件的邮箱。用哪个邮箱注册各种账号，以<b>拉你进群的同事</b>告诉你的为准，本页下面统称"你的引路人"。</li>
-<li>能正常打开 <a href="https://github.com" target="_blank" rel="noopener">github.com</a> 和 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> 的网络。打不开先别自己折腾，问引路人拿公司的网络方案。</li>
-<li>手机上装一个验证器应用，比如 Google Authenticator、Microsoft Authenticator 或 1Password，后面开两步验证要用。</li>
+<li>一个能上 Telegram 的手机或电脑，我们的沟通都在 Telegram 里。</li>
 </ul>
+<div class="sub">确认网络能用</div>
+<p>用浏览器打开 <a href="https://github.com" target="_blank" rel="noopener">github.com</a> 和 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>。两个都能正常显示就行；如果一直转圈、打不开或很慢，先别自己折腾，问引路人拿公司的网络方案，拿到再往下走。</p>
+<div class="sub">手机上装一个"验证器 app"</div>
+<p>后面注册 GitHub 要开"两步验证"：登录时除了密码，还要输一个手机上显示的 6 位数字。这个数字由验证器 app 生成。三选一，都免费：</p>
+<ul>
+<li><b>Google Authenticator</b>：iPhone 在 App Store 搜这个名字，Android 在应用商店搜；图标是灰色的星号。</li>
+<li><b>Microsoft Authenticator</b>：同样搜名字，蓝色图标。</li>
+<li><b>1Password</b> 或你已经在用的密码管理器，如果它支持"一次性密码"也可以。</li>
+</ul>
+<figure><img src="img/authenticator-app.svg" alt="验证器 app 示意：每个网站一行，一个 6 位数字每 30 秒变一次" loading="lazy"><figcaption>验证器 app 长这样。每个网站一行，6 位数字每 30 秒换一次。登录时网站问你要验证码，打开 app 抄那 6 位就行。手机换机前要先迁移，否则会登不上。</figcaption></figure>
+<p>装好先打开一次，允许它使用相机（扫码用），然后放着，下一步会用。</p>
 <p class="who">不行找谁：你的引路人。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
 <section class="step" id="s1" data-step="1">
-<h2><span class="num">1</span>注册 GitHub</h2>
+<h2><span class="num">1</span>注册 GitHub 并开两步验证</h2>
 <p>GitHub 是放代码和流程记录的网站，也是公司的"身份系统"：你能看什么、改什么，由它决定。</p>
+<div class="sub">1a 注册</div>
 <ol>
-<li>打开 <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>，用第 0 步的邮箱注册。</li>
-<li>打开 <a href="https://github.com/settings/security" target="_blank" rel="noopener">github.com/settings/security</a>，开启 Two-factor authentication，选验证器应用，把恢复码保存到密码管理器或安全的地方。<b>公司组织强制两步验证，不开的话后面加不进来。</b></li>
-<li>记住你的 GitHub 用户名，后面要报给 bot。</li>
+<li>打开 <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>。</li>
+<li>依次填：邮箱（第 0 步那个）、密码（至少 8 位，存进密码管理器）、用户名。<b>用户名以后会公开显示、也是同事认你的名字</b>，建议用名字拼音，只能用字母、数字和连字符。</li>
+<li>它会让你做一个"我不是机器人"的小游戏，按提示完成。</li>
+<li>去邮箱收一封验证码邮件，把码填回去。问你几个偏好问题，随便选或跳过。</li>
 </ol>
-<div class="check"><b>怎么确认：</b>在 settings/security 页看到两步验证已开启。</div>
+<figure><img src="img/github-login.png" alt="GitHub 登录页" loading="lazy"><figcaption>注册好以后，GitHub 的登录页长这样。以后登录输邮箱和密码，开了两步验证后还会多问一个 6 位码。</figcaption></figure>
+<div class="sub">1b 开两步验证（必做）</div>
+<p><b>公司组织强制两步验证，不开的话后面加不进来。</b>四个画面，一步步来：</p>
+<figure><img src="img/github-2fa-flow.svg" alt="GitHub 开两步验证的四个画面：点按钮、扫码、输码、存恢复码" loading="lazy"><figcaption>四个画面对应下面四步。</figcaption></figure>
+<ol>
+<li>登录后打开 <a href="https://github.com/settings/security" target="_blank" rel="noopener">github.com/settings/security</a>，找到 Two-factor authentication，点绿色按钮 <b>Enable two-factor authentication</b>。</li>
+<li>它显示一个二维码。打开手机上的验证器 app，点"＋"或"扫码添加"，对准电脑屏幕扫。扫完 app 里会多出一行 GitHub，下面是 6 位数字。</li>
+<li>把 app 上此刻显示的 6 位数字填进网页的输入框，点 Continue。数字每 30 秒变一次，快到期就等下一组。</li>
+<li>它给你一页 <b>Recovery codes</b>（恢复码）。点 Download 或 Copy，存进密码管理器或一个安全的地方。<b>手机丢了只能靠它找回账号，不要只截图放相册。</b>然后点确认完成。</li>
+</ol>
+<div class="check"><b>怎么确认：</b>回到 settings/security 页，Two-factor authentication 一栏显示 Enabled。再记住你的用户名，后面要报给 bot。</div>
+<p class="who">卡住：验证码总提示错误，多半是手机时间不准，去手机设置里把时间改成自动获取。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
 <section class="step" id="s2" data-step="2">
 <h2><span class="num">2</span>装三个基础工具</h2>
 <p>终端是用文字命令操控电脑的窗口，AI 助手就住在里面。要装的三个工具：<code>git</code> 记录代码修改，<code>Node.js</code> 运行一些工具，<code>gh</code> 让终端能操作 GitHub。先在上面选你的电脑系统。</p>
+<figure><img src="img/terminal.svg" alt="终端窗口示意：命令、成功输出、找不到命令的报错" loading="lazy"><figcaption>终端长这样。"$"前面是提示符，不用输入；一行命令回车，它把结果打回来。</figcaption></figure>
+
 <div class="panel" data-os="mac">
 <div class="pane-title">macOS</div>
 <ol>
-<li>打开"终端"应用：按 <code>⌘ + 空格</code>，输入 终端，回车。</li>
-<li>装 Homebrew，复制整行到终端回车，按提示输密码（输入时不显示，正常）：
+<li>打开"终端"：按 <kbd>⌘</kbd> + <kbd>空格</kbd>，输入 终端，回车。出现一个黑底或白底的窗口。</li>
+<li>装 Homebrew（macOS 上装软件的工具）。点下面的"复制"，回到终端 <kbd>⌘</kbd> + <kbd>V</kbd> 粘贴，回车：
 <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
-装完它会打印两行让你复制执行的命令，照做。</li>
-<li>装三个工具：
+它会要你的电脑登录密码，输入时屏幕不显示任何字符，这是正常的，输完回车。中途可能弹窗让你装"命令行开发者工具"，点安装，等它装完（可能十几分钟）。最后它会打印两行以 <code>echo</code> 和 <code>eval</code> 开头的命令让你执行，照做。</li>
+<li>装三个工具，一行搞定：
 <pre><code>brew install git node gh</code></pre></li>
 </ol>
 </div>
+
 <div class="panel" data-os="win">
 <div class="pane-title">Windows</div>
 <ol>
-<li>打开 PowerShell：按 <code>Win + X</code>，选"终端（管理员）"或"Windows PowerShell（管理员）"；找不到就在开始菜单搜索 PowerShell，右键"以管理员身份运行"。弹出"是否允许更改"选是。</li>
-<li>先确认 <code>winget</code> 存在：输入 <code>winget --version</code> 回车。提示找不到就去 Microsoft Store 搜索"应用安装程序"点更新或安装，装完重开 PowerShell；实在不行按下面"命令速查"里的官网安装包装。</li>
-<li>依次执行三行，每行回车等它装完再下一行，中间要你确认协议就按 Y：
+<li>打开 PowerShell：按 <kbd>Win</kbd> + <kbd>X</kbd>，选"终端（管理员）"或"Windows PowerShell（管理员）"；找不到就在开始菜单搜索 PowerShell，右键"以管理员身份运行"。弹出"是否允许此应用更改"选是。</li>
+<li>先看有没有 <code>winget</code>：
+<pre><code>winget --version</code></pre>
+打印出版本号就跳到第 3 条。提示"无法识别"就去 Microsoft Store 搜"应用安装程序"，点更新或安装，装完关掉 PowerShell 重开再试。
+<figure><img src="img/ms-app-installer.png" alt="Microsoft Store 里的“应用安装程序”页面" loading="lazy"><figcaption>Microsoft Store 里叫"应用安装程序"，winget 就在里面。</figcaption></figure>
+</li>
+<li>依次执行三行，每行回车等它装完再下一行，中间要你确认协议就按 <kbd>Y</kbd> 回车：
 <pre><code>winget install --id Git.Git -e</code></pre>
 <pre><code>winget install --id OpenJS.NodeJS.LTS -e</code></pre>
 <pre><code>winget install --id GitHub.cli -e</code></pre></li>
-<li>装完<b>关掉 PowerShell 重新打开</b>，不用管理员也行。</li>
+<li>装完<b>关掉 PowerShell 重新打开</b>，这次不需要管理员。</li>
 </ol>
+<details><summary>winget 实在装不上？用官网安装包</summary>
+<p>三个都是"下载、双击、一路下一步"，装完重开 PowerShell：</p>
+<ul>
+<li>Git：<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win</a>，点 Click here to download。</li>
+<li>Node.js：<a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>，选 LTS，系统选 Windows，下载 .msi。</li>
+<li>gh：<a href="https://cli.github.com/" target="_blank" rel="noopener">cli.github.com</a>，Download for Windows。</li>
+</ul>
+<figure><img src="img/git-windows.png" alt="git-scm.com 的 Windows 下载页" loading="lazy"><figcaption>Git 的 Windows 下载页，第一行 Click here to download 就是。</figcaption></figure>
+<figure><img src="img/nodejs-download.png" alt="nodejs.org 的下载页" loading="lazy"><figcaption>Node.js 下载页，版本选带 LTS 标记的，系统选你的。</figcaption></figure>
+</details>
 </div>
+
 <div class="panel" data-os="linux">
 <div class="pane-title">Linux（Ubuntu / Debian）</div>
 <ol>
-<li>打开终端，执行：
-<pre><code>sudo apt update &amp;&amp; sudo apt install -y git curl</code></pre>
-<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code></pre></li>
-<li>关掉终端重新打开，执行：
+<li>打开终端，执行（会要你的密码，输入不显示是正常的）：
+<pre><code>sudo apt update &amp;&amp; sudo apt install -y git curl</code></pre></li>
+<li>装 nvm（管理 Node 版本的工具），再装 Node：
+<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code></pre>
+关掉终端重新打开，再执行：
 <pre><code>nvm install --lts</code></pre></li>
-<li>gh 按官方说明安装：<a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank" rel="noopener">install_linux.md</a>。</li>
+<li>gh 按官方说明安装：<a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md" target="_blank" rel="noopener">install_linux.md</a>，Ubuntu 一节复制整段执行即可。</li>
 </ol>
 </div>
+
 <div class="check"><b>怎么确认：</b><b>关掉终端，重新打开一个</b>（不做这一步下面会说找不到命令），执行：
 <pre><code>git --version &amp;&amp; node --version &amp;&amp; gh --version</code></pre>
 三行都打印出版本号，node 的版本 v18 以上。</div>
-<p class="who">常见问题：提示 command not found，九成是没重开终端。</p>
+<p class="who">常见问题：提示 command not found 或"无法识别"，九成是没重开终端；Windows 还不行就重启电脑。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
 <section class="step" id="s3" data-step="3">
 <h2><span class="num">3</span>让终端登录 GitHub</h2>
+<p>让终端里的 <code>gh</code> 认识你的 GitHub 账号，以后拉代码、装公司流程都靠它。</p>
 <pre><code>gh auth login -h github.com -p https -w</code></pre>
-<p>它会问几个问题，依次选：GitHub.com、HTTPS、Yes（授权 git 用它的凭据）、Login with a web browser。它给你一个 8 位码，回车后浏览器打开，把码输进去确认。登录完再执行：</p>
+<p>它会一问一答，用键盘上下键选、回车确认：</p>
+<ol>
+<li>Where do you use GitHub? 选 <b>GitHub.com</b></li>
+<li>What is your preferred protocol? 选 <b>HTTPS</b></li>
+<li>Authenticate Git with your GitHub credentials? 选 <b>Yes</b></li>
+<li>How would you like to authenticate? 选 <b>Login with a web browser</b></li>
+<li>它显示一个 8 位码，例如 <code>ABCD-1234</code>，记下来，回车。浏览器会打开 GitHub 的登录页（长得和第 1 步那张图一样），登录后出现输码的框，把 8 位码输进去，点 Continue，再点 Authorize。</li>
+<li>回到终端，看到 Logged in as 你的用户名。</li>
+</ol>
+<p>再执行下面这行，让 git 也用同一份登录：</p>
 <pre><code>gh auth setup-git</code></pre>
-<div class="check"><b>怎么确认：</b>执行 <code>gh auth status</code>，显示 Logged in to github.com。</div>
+<div class="check"><b>怎么确认：</b>执行 <code>gh auth status</code>，显示 Logged in to github.com account 你的用户名。</div>
+<p class="who">卡住：浏览器没自动打开就手动打开 <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device</a> 输码。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
@@ -148,11 +206,14 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <h2><span class="num">4</span>注册 Claude 并订阅</h2>
 <p>Claude Code 是我们主要用的 AI 助手，第一天只装这一个。它需要一个 Claude 账号，费用你先付，公司报销，报销流程进群后 AI 会告诉你。</p>
 <ol>
-<li>打开 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>，用第 0 步的邮箱注册。</li>
-<li>进 Settings → Billing，订阅 Pro（日常够用）或 Max（重度写代码）。</li>
-<li>账单在同一页能下载，留着报销。</li>
+<li>打开 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>，点 Sign up，用第 0 步的邮箱注册。它会发一个登录链接或验证码到邮箱，去邮箱点一下。</li>
+<li>登录后左下角点你的头像或名字，进 <b>Settings</b>，找 <b>Billing</b>（或页面上的 Upgrade 按钮）。</li>
+<li>选 <b>Pro</b>（日常够用）或 <b>Max</b>（重度写代码），按月付。填银行卡付款。</li>
+<li>付完在 Billing 页能看到订阅状态和账单，账单以后报销用，现在不用管。</li>
 </ol>
-<div class="check"><b>怎么确认：</b>Billing 页显示订阅生效。</div>
+<figure><img src="img/claude-pricing.png" alt="Claude 的定价页：Free、Pro、Max 三档" loading="lazy"><figcaption>三档里选 Pro 或 Max，两档都包含 Claude Code。Free 不能用 Claude Code。</figcaption></figure>
+<div class="check"><b>怎么确认：</b>Billing 页显示 Pro 或 Max 订阅生效。</div>
+<p class="who">卡住：付款被拒多半是银行卡不支持美元或海外扣款，换一张卡，或问引路人公司有没有统一方案。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
@@ -160,38 +221,53 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <h2><span class="num">5</span>装 Claude Code 并登录</h2>
 <div class="panel" data-os="mac"><div class="pane-title">macOS 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
 <div class="panel" data-os="linux"><div class="pane-title">Linux 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
-<div class="panel" data-os="win"><div class="pane-title">Windows PowerShell（普通权限即可）</div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre><p>如果报"禁止运行脚本"，先执行 <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> 回答 Y，再执行上面那行。</p></div>
-<p>关掉终端重新打开，执行 <code>claude</code>，按提示在浏览器登录，回到终端看到对话框就成了。</p>
+<div class="panel" data-os="win"><div class="pane-title">Windows PowerShell（普通权限即可）</div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre><p>如果报"禁止运行脚本"，先执行下面这行回答 <kbd>Y</kbd>，再执行上面那行：</p><pre><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code></pre></div>
+<p>装完<b>关掉终端重新打开</b>，执行：</p>
+<pre><code>claude</code></pre>
+<p>第一次运行它会问你几个问题：</p>
+<ol>
+<li>选配色，随便选，回车。</li>
+<li>登录方式选 <b>Claude account with subscription</b>（用你第 4 步的订阅账号），不要选 Console。</li>
+<li>浏览器打开，用第 4 步的账号登录，点允许，回到终端。</li>
+<li>它可能问是否信任当前文件夹，选 Yes。之后出现一个可以打字的对话框，说明成了。先按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 两次退出，第 8 步再回来。</li>
+</ol>
 <div class="check"><b>怎么确认：</b>执行 <code>claude --version</code> 打印版本号。</div>
+<p class="who">卡住：找不到 claude 命令，重开终端；Windows 还不行就重启电脑。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
 <section class="step" id="s6" data-step="6">
 <h2><span class="num">6</span>进群，绑定，等审批</h2>
+<p>我们用 Telegram 沟通。手机装 Telegram 并注册后，把你的 Telegram 用户名或手机号告诉引路人，让他把你拉进公司群。群里分几个"话题"：新人入口、申请审批、求助、公告，进群先看新人入口的置顶。</p>
+<figure><img src="img/morpheus-flow.svg" alt="进群后与 Morpheus 私聊绑定 GitHub 的四个画面" loading="lazy"><figcaption>进群之后的四步，全程在 Telegram 和浏览器之间切换。</figcaption></figure>
 <ol>
-<li>让引路人把你拉进公司 Telegram 群。进群后一个叫 Morpheus 的 bot 会 @你，给你一个"开始入职"按钮。</li>
-<li>点按钮进入和 Morpheus 的私聊，发 <code>/start</code>。它会给你一个 GitHub 设备码链接：浏览器打开、输入代码、用你第 1 步的 GitHub 账号授权，回来点"我已授权"。</li>
-<li>管理员在群里点一下批准，你会收到 GitHub 组织的邀请，去 <a href="https://github.com/orgs/Ali-Matrix-Technologies/invitation" target="_blank" rel="noopener">接受邀请</a>。</li>
-<li>私聊里点左下角菜单"入门看板"，能看到你走到哪一步了。</li>
+<li>进群后一个叫 <b>Morpheus</b> 的 bot 会在新人入口 @你，给你一个"🚀 开始入职"按钮。点它，会打开和 Morpheus 的私聊。</li>
+<li>在私聊里发 <code>/start</code>。它回你一个 GitHub 的链接和一个 8 位代码。浏览器打开链接，用第 1 步的 GitHub 账号登录，把代码输进去，点 Continue、Authorize。</li>
+<li>回到 Telegram 点"✅ 我已授权"。它会说"入职申请已提交"。</li>
+<li>等管理员在群里点批准。批准后你会收到私聊"邀请已发出"，去 <a href="https://github.com/orgs/Ali-Matrix-Technologies/invitation" target="_blank" rel="noopener">接受邀请</a>，页面上点绿色的 Join。</li>
+<li>私聊里点左下角的菜单按钮"入门看板"，能看到你走到哪一步了，卡在哪一步它会告诉你下一步做什么。</li>
 </ol>
-<div class="check"><b>怎么确认：</b>Morpheus 私聊你"已接受邀请，入职单完成"。</div>
+<div class="check"><b>怎么确认：</b>Morpheus 私聊你"已接受邀请，入职单完成"；或者看板里前三步都是 ✅。</div>
+<p class="who">卡住：/start 说"没有你的入群记录"，让拉你进群的人在群里回复你任意一条消息并发 /sponsor，再重发 /start。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
 <section class="step" id="s7" data-step="7">
 <h2><span class="num">7</span>一条命令接入公司流程</h2>
+<p>回到终端，执行：</p>
 <pre><code>npx github:Ali-Matrix-Technologies/sop</code></pre>
-<p>问 Ok to proceed 就按 <code>y</code>。它会检查前面几步、把公司流程库拉到本机、给 Claude Code 装上引导技能。</p>
-<div class="check"><b>怎么确认：</b>最后打印"完成"。</div>
+<p>第一次它会问 Need to install the following packages… Ok to proceed? 按 <kbd>y</kbd> 回车。然后它分四段打印：前置检查、同步流程库、给 Claude Code 装引导技能、验证，每行前面打勾。</p>
+<div class="check"><b>怎么确认：</b>最后打印"完成"，四段里没有 ✘。有 ✘ 的那行会写明原因和该去看哪一步。</div>
+<p class="who">卡住：报 404 或没权限，说明第 6 步的邀请还没接受；报找不到 npx，说明第 2 步的 Node 没装好或没重开终端。</p>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 
 <section class="step" id="s8" data-step="8">
 <h2><span class="num">8</span>对 AI 说第一句话</h2>
-<p>终端执行 <code>claude</code> 进入对话，输入：</p>
+<p>终端执行 <code>claude</code> 进入对话，在对话框里输入下面这句，回车：</p>
 <pre><code>我是新人，从哪开始</code></pre>
-<p>它会列出公司的所有流程，并带你一步步做。之后遇到任何"这里怎么做"，先问它，再问人。它问你"要不要我带你做"，说要。</p>
-<div class="tip"><b>从此以后：</b>卡住了在群里的"求助"话题发消息；想申请权限私聊 Morpheus 发 <code>/request</code>；想看流程发 <code>/sops</code>；想看进度点菜单"入门看板"。</div>
+<p>它会先同步公司流程库，然后列出所有流程，给你一个推荐顺序，并问你要不要带着做。说"要"。它做的每一步都会解释，看不懂的直接问它"这是什么意思"。它遇到要改别人权限、删除、花钱的事会先停下来问你，看清楚再答"是"。</p>
+<div class="tip"><b>从此以后：</b>卡住了在群里的"求助"话题发消息，或对 AI 说"我卡住了"让它帮你写求助消息；想申请权限私聊 Morpheus 发 <code>/request</code>；想看流程发 <code>/sops</code>；想看进度点菜单"入门看板"。</div>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
 </section>
 

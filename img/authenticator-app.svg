@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520" font-family="-apple-system,PingFang SC,Microsoft YaHei,sans-serif">
+<rect x="20" y="10" width="320" height="500" rx="36" fill="#111" /><rect x="34" y="24" width="292" height="472" rx="28" fill="#fff"/>
+<text x="180" y="70" text-anchor="middle" font-size="18" font-weight="700" fill="#111">验证器 app</text>
+<text x="180" y="94" text-anchor="middle" font-size="12" fill="#777">Google / Microsoft Authenticator、1Password 都长这样</text>
+<rect x="54" y="120" width="252" height="110" rx="14" fill="#f4f4f6"/>
+<text x="70" y="150" font-size="13" fill="#555">GitHub</text><text x="70" y="168" font-size="12" fill="#999">你的用户名</text>
+<text x="70" y="212" font-size="34" font-weight="700" fill="#111" letter-spacing="4">482 913</text>
+<circle cx="278" cy="190" r="16" fill="none" stroke="#ddd" stroke-width="4"/><path d="M278 174 a16 16 0 1 1 -13.9 8" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="278" y="194" text-anchor="middle" font-size="10" fill="#2563eb">19s</text>
+<rect x="54" y="246" width="252" height="70" rx="14" fill="#f4f4f6"/><text x="70" y="272" font-size="13" fill="#555">Claude</text><text x="70" y="302" font-size="26" font-weight="700" fill="#bbb" letter-spacing="3">•••  •••</text>
+<text x="180" y="360" text-anchor="middle" font-size="13" fill="#333">每个网站一行，6 位数字每 30 秒换一次</text>
+<text x="180" y="382" text-anchor="middle" font-size="13" fill="#333">登录时网站问你要验证码，就打开 app 抄这 6 位</text>
+<text x="180" y="404" text-anchor="middle" font-size="13" fill="#333">快到期就等下一组，不用着急</text>
+<rect x="120" y="440" width="120" height="40" rx="20" fill="#2563eb"/><text x="180" y="465" text-anchor="middle" font-size="14" fill="#fff">＋ 扫码添加</text>
+</svg>

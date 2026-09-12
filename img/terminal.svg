@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" viewBox="0 0 720 300" font-family="Menlo,Consolas,monospace">
+<rect width="720" height="300" rx="12" fill="#0f172a"/><rect width="720" height="34" rx="12" fill="#1e293b"/><circle cx="20" cy="17" r="6" fill="#ff5f57"/><circle cx="40" cy="17" r="6" fill="#febc2e"/><circle cx="60" cy="17" r="6" fill="#28c840"/>
+<text x="360" y="22" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="-apple-system,PingFang SC,sans-serif">终端 — 你打一行命令，回车，它把结果打回来</text>
+<text x="20" y="70" font-size="14" fill="#7dd3fc">~ $</text><text x="60" y="70" font-size="14" fill="#e2e8f0">git --version</text>
+<text x="20" y="96" font-size="14" fill="#a7f3d0">git version 2.45.0</text>
+<text x="20" y="130" font-size="14" fill="#7dd3fc">~ $</text><text x="60" y="130" font-size="14" fill="#e2e8f0">node --version</text>
+<text x="20" y="156" font-size="14" fill="#a7f3d0">v22.11.0</text>
+<text x="20" y="190" font-size="14" fill="#7dd3fc">~ $</text><text x="60" y="190" font-size="14" fill="#e2e8f0">claude</text>
+<text x="20" y="216" font-size="14" fill="#fca5a5">zsh: command not found: claude</text>
+<text x="20" y="250" font-size="12" fill="#94a3b8" font-family="-apple-system,PingFang SC,sans-serif">上面两条“成功”是打印了版本号；最后一条“找不到命令”多半是装完没重开终端。</text>
+<text x="20" y="272" font-size="12" fill="#94a3b8" font-family="-apple-system,PingFang SC,sans-serif">“$”前面的是提示符，不用输入；复制命令时从 git、node、claude 这些词开始。</text>
+</svg>
