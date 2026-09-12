@@ -56,7 +56,7 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <p class="lead">你好，欢迎加入 Ali Matrix。这一页是你在拥有任何账号之前唯一需要看的东西。按顺序做，每一步都有<b>怎么确认</b>和<b>不行找谁</b>。全部做完大约 1 到 2 小时，之后你就有一个 AI 助手带着你做后面的所有事，不需要再找人教。</p>
 <div class="tip">你不需要会编程，也不需要用过 AI。看不懂的词，页面最下面有<a href="#glossary">名词解释</a>。命令块右上角都有"复制"按钮，复制后粘贴到终端按回车。</div>
 <nav class="toc" aria-label="目录">
-<a href="#s0">0 准备</a><a href="#s1">1 GitHub</a><a href="#s2">2 装工具</a><a href="#s3">3 登录</a><a href="#s4">4 Claude 账号</a><a href="#s5">5 Claude Code</a><a href="#s6">6 进群</a><a href="#s7">7 接入流程</a><a href="#s8">8 第一句话</a>
+<a href="#s0">0 准备</a><a href="#s1">1 GitHub</a><a href="#s2">2 装工具</a><a href="#s3">3 登录</a><a href="#s4">4 Claude 账号</a><a href="#s5">5 Claude Code</a><a href="#s6">6 进群</a><a href="#s7">7 接入流程</a><a href="#s8">8 第一句话</a><a href="#commands">命令速查</a>
 </nav>
 </header>
 
@@ -108,11 +108,13 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <div class="panel" data-os="win">
 <div class="pane-title">Windows</div>
 <ol>
-<li>开始菜单搜索 PowerShell，右键"以管理员身份运行"。</li>
-<li>依次执行三行，每行回车等它装完再下一行：
+<li>打开 PowerShell：按 <code>Win + X</code>，选"终端（管理员）"或"Windows PowerShell（管理员）"；找不到就在开始菜单搜索 PowerShell，右键"以管理员身份运行"。弹出"是否允许更改"选是。</li>
+<li>先确认 <code>winget</code> 存在：输入 <code>winget --version</code> 回车。提示找不到就去 Microsoft Store 搜索"应用安装程序"点更新或安装，装完重开 PowerShell；实在不行按下面"命令速查"里的官网安装包装。</li>
+<li>依次执行三行，每行回车等它装完再下一行，中间要你确认协议就按 Y：
 <pre><code>winget install --id Git.Git -e</code></pre>
 <pre><code>winget install --id OpenJS.NodeJS.LTS -e</code></pre>
 <pre><code>winget install --id GitHub.cli -e</code></pre></li>
+<li>装完<b>关掉 PowerShell 重新打开</b>，不用管理员也行。</li>
 </ol>
 </div>
 <div class="panel" data-os="linux">
@@ -135,8 +137,8 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 
 <section class="step" id="s3" data-step="3">
 <h2><span class="num">3</span>让终端登录 GitHub</h2>
-<pre><code>gh auth login -h github.com -p ssh -w</code></pre>
-<p>一路选默认：GitHub.com、SSH、Yes 生成密钥、浏览器登录。登录完再执行：</p>
+<pre><code>gh auth login -h github.com -p https -w</code></pre>
+<p>它会问几个问题，依次选：GitHub.com、HTTPS、Yes（授权 git 用它的凭据）、Login with a web browser。它给你一个 8 位码，回车后浏览器打开，把码输进去确认。登录完再执行：</p>
 <pre><code>gh auth setup-git</code></pre>
 <div class="check"><b>怎么确认：</b>执行 <code>gh auth status</code>，显示 Logged in to github.com。</div>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
@@ -158,7 +160,7 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <h2><span class="num">5</span>装 Claude Code 并登录</h2>
 <div class="panel" data-os="mac"><div class="pane-title">macOS 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
 <div class="panel" data-os="linux"><div class="pane-title">Linux 终端</div><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></div>
-<div class="panel" data-os="win"><div class="pane-title">Windows PowerShell</div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></div>
+<div class="panel" data-os="win"><div class="pane-title">Windows PowerShell（普通权限即可）</div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre><p>如果报"禁止运行脚本"，先执行 <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> 回答 Y，再执行上面那行。</p></div>
 <p>关掉终端重新打开，执行 <code>claude</code>，按提示在浏览器登录，回到终端看到对话框就成了。</p>
 <div class="check"><b>怎么确认：</b>执行 <code>claude --version</code> 打印版本号。</div>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
@@ -191,6 +193,35 @@ footer{color:var(--muted);font-size:13px;margin-top:24px}
 <p>它会列出公司的所有流程，并带你一步步做。之后遇到任何"这里怎么做"，先问它，再问人。它问你"要不要我带你做"，说要。</p>
 <div class="tip"><b>从此以后：</b>卡住了在群里的"求助"话题发消息；想申请权限私聊 Morpheus 发 <code>/request</code>；想看流程发 <code>/sops</code>；想看进度点菜单"入门看板"。</div>
 <label class="done"><input type="checkbox"> 这一步做完了</label>
+</section>
+
+<section class="step" id="commands">
+<h2>用到的命令，没有怎么办</h2>
+<p>每个命令都可以先用 <code>某命令 --version</code> 看有没有。<b>装完任何东西都要关掉终端重新打开</b>，否则一律"找不到命令"。</p>
+<dl>
+<dt>终端 / PowerShell 本身</dt>
+<dd>macOS：自带，⌘ + 空格 搜"终端"。Windows：自带 PowerShell，按 Win + X 打开；推荐去 Microsoft Store 装"Windows Terminal"更好用。Linux：自带。</dd>
+<dt>winget（只有 Windows）</dt>
+<dd>Windows 10 1809 以上和 Windows 11 自带。没有：Microsoft Store 搜"应用安装程序"安装或更新。仍不行就直接下载安装包：<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git</a>、<a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js 选 LTS</a>、<a href="https://cli.github.com/" target="_blank" rel="noopener">GitHub CLI</a>，一路下一步。</dd>
+<dt>brew（只有 macOS）</dt>
+<dd>第 2 步那一行装的。它会先装 Xcode 命令行工具，可能要等十几分钟，中途弹窗点安装。装完按它打印的两行把 brew 加进 PATH。</dd>
+<dt>git</dt>
+<dd>检查：<code>git --version</code>。macOS 用 brew 装；Windows 用 winget 或官网安装包；Linux <code>sudo apt install git</code>。</dd>
+<dt>node / npm / npx</dt>
+<dd>检查：<code>node --version</code>，要 v18 以上。三个是一起装的，有 node 就有 npm 和 npx。Windows 装完必须重开 PowerShell。</dd>
+<dt>gh</dt>
+<dd>检查：<code>gh --version</code>。GitHub 的命令行工具。装法同 git。登录用第 3 步的命令。</dd>
+<dt>curl</dt>
+<dd>macOS 和 Linux 自带。Windows 上本页不用它；如果别处看到 <code>curl</code>，在 PowerShell 里要写 <code>curl.exe</code>，因为 <code>curl</code> 在 PowerShell 里是另一个命令的别名。</dd>
+<dt>irm / iex（只有 Windows）</dt>
+<dd>PowerShell 自带，作用是下载并运行安装脚本。报"禁止运行脚本"见第 5 步。</dd>
+<dt>sudo（只有 macOS / Linux）</dt>
+<dd>以管理员身份执行，会要你的登录密码，输入时不显示是正常的。本页只在 Linux 装工具时用到；流程里没写 <code>sudo</code> 的命令不要自己加。</dd>
+<dt>claude</dt>
+<dd>检查：<code>claude --version</code>。第 5 步装的。装完找不到：重开终端；Windows 还找不到就重启一次电脑。</dd>
+<dt>ssh（可选）</dt>
+<dd>本页用 HTTPS 登录 GitHub，不需要 ssh。以后需要时 Windows 在 设置 → 应用 → 可选功能 里加"OpenSSH 客户端"，macOS / Linux 自带。</dd>
+</dl>
 </section>
 
 <section class="step" id="glossary">
