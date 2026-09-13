@@ -6,12 +6,12 @@ GitHub Pages 直接提供 `index.html`，没有构建步骤或运行时依赖。
 
 ## 页面结构
 
-- `index.html`：三阶段、11 步入门，以及工具箱、Telegram、Teleport、命令和求助说明。
+- `index.html`：三阶段、11 步入门，以及工具箱、Telegram、Teleport、命令和求助说明。`#project-work` 衔接工作台内 clone-project / issue-flow SOP，说明独立 worktree 与交付清理；不新增入职勾选项。
 - `styles.css`：桌面 / 手机布局、深色模式、键盘焦点、减少动态效果和打印样式。
 - `app.js`：步骤导航、完成确认、审批等待、安装前置检查、系统切换、进度保存和命令复制。
 - `img/`：现有截图、示意图与图标。截图仅作位置参考，安装版本以官网为准。
 
-Telegram 群目前仅保留「求助」和「公告」两个入口；入职、权限申请和进度查询通过 Morpheus 私聊完成，由引路人提供 bot 名片或私聊入口。Telegram 在入群前准备；Claude Code、Codex CLI 和 Codex Desktop 纳入主流程。Teleport 尚未上线，说明放在工具箱，暂不计入完成进度。上线后再补公司批准的连接方式和版本，公开页不写内部入口。
+Telegram 群目前仅保留「求助」和「公告」两个入口；入职绑定从 Morpheus 私聊开始，由引路人提供 bot 名片或私聊入口；权限申请、已有权限和进度在「我的工作台 → 权限与申请」里完成，私聊命令仅作兼容入口。Telegram 在入群前准备；Claude Code、Codex CLI 和 Codex Desktop 纳入主流程。Teleport 尚未上线，说明放在工具箱，暂不计入完成进度。上线后再补公司批准的连接方式和版本，公开页不写内部入口。
 
 原有 `s0`–`s8` 锚点与 `ali-start-v1` 存储键保留。新增 `s9` / `s10` 用于 Codex；旧版的公司插件安装与首次对话需要重新确认，确保同时检查两种 AI 工具。其他已完成步骤保留。浏览器中的勾选仅为个人记录，实际入职状态以 Telegram bot 为准。
 
