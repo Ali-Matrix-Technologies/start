@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright, expect
 ROOT = Path(__file__).resolve().parents[1]
 KEY = 'ali-start-v1'
 ORDER = ['s0', 's1', 's6', 's2', 's3', 's4', 's5', 's9', 's10', 's7', 's8']
-REFS = ['tools', 'telegram', 'teleport', 'commands', 'glossary', 'help']
+REFS = ['tools', 'telegram', 'teleport', 'commands', 'glossary', 'help', 'project-work']
 ARTIFACTS = Path(os.environ.get('SCREENSHOT_DIR', str(Path(gettempdir()) / 'ali-start-qa')))
 ARTIFACTS.mkdir(parents=True, exist_ok=True)
 
@@ -158,6 +158,13 @@ try:
                 for view in ORDER + REFS:
                     go(phone_page, view)
                     assert phone_page.evaluate('document.documentElement.scrollWidth <= innerWidth'), (device, width, view, 'horizontal overflow')
+                    if view == 'project-work':
+                        assert phone_page.locator('#project-work .next-links').evaluate('(n)=>[...n.children].every(c=>c.getBoundingClientRect().right<=n.getBoundingClientRect().right+1)'), (device,width,'clipped project card')
+            phone_page.set_viewport_size({'width':390,'height':844})
+            go(phone_page, 'project-work')
+            expect(phone_page.locator('#project-work')).to_contain_text('独立 worktree')
+            expect(phone_page.locator('#project-work')).to_contain_text('远程分支和本地分支')
+            phone_page.screenshot(path=str(ARTIFACTS / (device.replace(' ', '-') + '-project.png')), full_page=True)
             phone.close()
 
         # Dark mode and reduced motion, plus current-step focus and deep links.

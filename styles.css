@@ -33,3 +33,6 @@ button:not(:disabled):active,.button:active{transform:scale(.96)}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}button:not(:disabled):active,.button:active{transform:none}}
 @media(max-width:580px){.tool-card{flex-wrap:wrap;padding:14px;gap:10px}.tool-card>div{flex:1;min-width:170px}.tool-badge{margin-left:48px}.site-header nav{gap:10px}.site-header nav a{font-size:10px}}
 @media print{body{background:white;color:black}.site-header,.sidebar,.welcome,.os-picker,.step-actions,.workspace-footer,.site-footer,.copy,.toast,.skip-link{display:none!important}.page{max-width:none;padding:0}.layout{display:block}.step[data-step]{display:block!important;box-shadow:none;border:1px solid #ddd;break-inside:avoid;margin-bottom:20px}.step.reference{display:none!important}.step-body,.step-header{padding:16px}pre{white-space:pre-wrap}.command{break-inside:avoid}}
+
+/* Project prompts wrap inside their cards at phone and tablet widths. */
+#project-work .next-links article{min-width:0}#project-work pre{white-space:pre-wrap;overflow-wrap:anywhere}
