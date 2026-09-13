@@ -1,6 +1,8 @@
 # Generated from infra/telegram-bot/scripts/collect_work.py and confirmed_commits.json; do not edit inline Python.
 name: Sync employee work board
 on:
+  issues:
+    types: [opened, edited, deleted, closed, reopened, assigned, unassigned, labeled, unlabeled, transferred, milestoned, demilestoned]
   push:
     branches: [main]
   pull_request_target:
@@ -10,6 +12,7 @@ on:
     - cron: '7 */6 * * *'
   workflow_dispatch:
 permissions:
+  issues: read
   contents: read
   pull-requests: read
   id-token: write
@@ -26,7 +29,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           WORK_BOARD_URL: https://morpheus.xiaogmy.workers.dev/work/feed
-          SYNC_TASKS: 'false'
+          SYNC_TASKS: 'true'
         shell: python
         run: |
           """Minimal read-only source collector. Embedded in trusted main Actions workflows."""
