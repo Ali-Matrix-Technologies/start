@@ -36,3 +36,11 @@ button:not(:disabled):active,.button:active{transform:scale(.96)}
 
 /* Project prompts wrap inside their cards at phone and tablet widths. */
 #project-work .next-links article{min-width:0}#project-work pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* The entire installation block is copied in one action, including newlines. */
+.install-intro{padding:18px 20px;background:var(--tint);border-radius:12px;margin:12px 0 18px}
+.install-intro h3{margin:8px 0 6px;font-size:18px;color:var(--fg)}
+.install-intro p{margin:0;color:var(--muted)}
+.install-badge{color:var(--accent);font-size:11px;font-weight:650;letter-spacing:.4px}
+.installer-command{min-width:0}.installer-command pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+.installer-command>.text-button{margin-top:-8px}.manual-install{margin-top:18px}

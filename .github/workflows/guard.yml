@@ -9,3 +9,19 @@ jobs:
         run: python3 scripts/check.py
       - name: 检查交互脚本语法
         run: node --check app.js
+  installer-unix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash -n scripts/install-tools.sh
+      - run: python3 tests/install-tools.py
+  installer-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Windows PowerShell 5.1 installation scenarios (mock)
+        shell: powershell
+        run: ./tests/install-tools.ps1

@@ -184,6 +184,26 @@ try:
         expect(static_page.locator('#teleport')).to_contain_text('尚未上线')
 
         assert not errors, errors
+        # Script commands are OS-specific, copied as a complete block, and remain
+        # a manual progress step. Both public assets are served as real files.
+        setup = browser.new_context(viewport={'width': 390, 'height': 844}, permissions=['clipboard-read', 'clipboard-write'])
+        setup_page = open_page(setup, '#s2')
+        for os_name, suffix in [('mac', 'sh'), ('win', 'ps1'), ('linux', 'sh')]:
+            setup_page.locator(f'#os [data-os={os_name}]').click()
+            command = setup_page.locator('#s2 .panel.on .installer-command').first
+            expected = command.locator('pre code').inner_text()
+            assert f'install-tools.{suffix}' in expected
+            assert ('-Only all' if os_name == 'win' else '--only all') in expected
+            command.locator('.copy').click()
+            assert setup_page.evaluate('navigator.clipboard.readText()') == expected
+            expect(setup_page.locator('#s2 input')).not_to_be_checked()
+            expect(setup_page.locator('#s2 .manual-install:visible')).to_have_count(1)
+            assert setup.request.get(URL + f'/scripts/install-tools.{suffix}').status == 200
+            setup_page.screenshot(path=str(ARTIFACTS / f'installer-{os_name}-mobile.png'), full_page=True)
+        setup_page.set_viewport_size({'width': 1440, 'height': 1000})
+        setup_page.locator('#os [data-os=mac]').click()
+        setup_page.screenshot(path=str(ARTIFACTS / 'installer-desktop.png'), full_page=True)
+        setup.close()
         browser.close()
         print('PASS: onboarding, approval, prerequisites, history, persistence, migration, clipboard, mobile, dark, reduced motion, no-JS')
         print(f'Screenshots: {ARTIFACTS}')
