@@ -20,7 +20,7 @@ GitHub Pages 直接提供 `index.html`，没有构建步骤或运行时依赖。
 - Linux：Ubuntu 22.04+ / Debian 12+，x64 / ARM64，bash / zsh，有 sudo；页面在缺 curl 时提供准备命令。Git 用 apt，gh 用官方 signed-by 源，Node 用 nvm。
 - Windows：x64 / ARM64，PowerShell 5.1+ 与 WinGet；基础工具与 Claude 用精确 WinGet 包，Codex 用 npm.cmd。缺 WinGet 提示安装 Microsoft Store「应用安装程序」。非零安装码（包括需要重启）停止；旧 Node 若不由 WinGet 管理，按错误提示用官方 LTS 安装包更新。
 
-脚本可能按需安装 Homebrew/nvm、设置默认 Node LTS、追加 shell 命令路径、添加官方 gh apt 源及 Windows 用户 npm PATH，不覆盖 shell 文件、不永久修改 PowerShell 执行策略、不使用 sudo npm、不操作 Git 身份/登录/组织邀请。下载先落到唯一临时文件，完整下载后才执行并在退出时清理。工具未成功验证时不输出安装完成。安装完成后重开终端复验，然后继续 GitHub/Claude/ChatGPT 登录、桌面应用和公司 SOP，浏览器不自动勾选。
+脚本可能按需安装 Homebrew/nvm、设置默认 Node LTS、追加 shell 命令路径、添加官方 gh apt 源及 Windows 用户 npm PATH，不覆盖 shell 文件、不永久修改 PowerShell 执行策略、不使用 sudo npm、不操作 Git 身份/登录/组织邀请。全新 macOS 缺少 Apple Command Line Tools 时，会打开系统安装提示并停止；安装完成后重跑继续。下载先落到唯一临时文件，成功且非空后才执行并在退出时清理。工具未成功验证时不输出安装完成。安装完成后重开终端复验，然后继续 GitHub/Claude/ChatGPT 登录、桌面应用和公司 SOP，浏览器不自动勾选。
 
 本地验证只运行 `bash scripts/install-tools.sh --check`，不能为了测试卸载真实工具。行为回归用隔离目录和命令 mock：
 

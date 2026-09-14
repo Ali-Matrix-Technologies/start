@@ -5,6 +5,8 @@ import subprocess
 import tempfile
 import unittest
 import sys
+import re
+import html
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'scripts/install-tools.sh'
 MOCKS = r'''
@@ -16,6 +18,11 @@ export TMPDIR="$CASE_ROOT/tmp"
 mkdir -p "$install_home" "$TMPDIR"
 id() { echo 1000; }
 uname() { if [[ $1 == -s ]]; then echo "${FAKE_OS:-Darwin}"; else echo "${FAKE_ARCH:-arm64}"; fi; }
+xcode-select() {
+  if [[ "$1" == -p ]]; then [[ "${FAIL_AT:-}" != clt ]]; return; fi
+  [[ "$1" == --install ]] || return 94
+  echo 'xcode-select --install' >> "$CASE_ROOT/commands"
+}
 version() {
   [[ -f "$CASE_ROOT/$1" ]] || return 127
   if [[ $1 == node ]]; then cat "$CASE_ROOT/node"; else echo "$1 1.0.0"; fi
@@ -151,6 +158,43 @@ class InstallTests(unittest.TestCase):
         self.assertTrue((self.root / 'codex').exists())
         self.assertFalse((self.root / 'git').exists())
         self.assertFalse((self.root / 'claude').exists())
+
+    def test_fresh_mac_requests_clt_before_nvm_and_can_resume(self):
+        result = self.run_script('--only', 'codex', FAIL_AT='clt')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('系统窗口', result.stderr)
+        self.assertEqual((self.root / 'commands').read_text(), 'xcode-select --install\n')
+        self.assertFalse((self.root / 'node').exists())
+        result = self.run_script('--only', 'codex')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.root / 'codex').exists())
+
+    def test_copied_unix_wrappers_reject_failed_or_empty_download(self):
+        page = (SCRIPT.parents[1] / 'index.html').read_text()
+        blocks = [html.unescape(block) for block in re.findall(r'<code>(.*?)</code>', page, re.S)
+                  if 'install-tools.sh' in block]
+        self.assertEqual(len(blocks), 6)
+        temp_dir = self.root / 'wrappers'
+        temp_dir.mkdir()
+        mock = r'''
+curl() {
+  local output="${@: -1}"
+  if [[ "$WRAPPER_CASE" == empty ]]; then : > "$output"; return; fi
+  printf 'touch "%s/executed"\nexit %s\n' "$CASE_ROOT" "$PAYLOAD_EXIT" > "$output"
+  [[ "$WRAPPER_CASE" != download-error ]]
+}
+'''
+        for block in blocks:
+            for case, payload_exit in [('empty', '0'), ('download-error', '0'),
+                                       ('success', '0'), ('installer-error', '23')]:
+                marker = self.root / 'executed'
+                marker.unlink(missing_ok=True)
+                result = subprocess.run(['/bin/bash', '-c', mock + block], text=True,
+                    capture_output=True, timeout=10, env={**self.env, 'TMPDIR': str(temp_dir),
+                    'WRAPPER_CASE': case, 'PAYLOAD_EXIT': payload_exit})
+                self.assertEqual(result.returncode == 0, case == 'success', result.stderr)
+                self.assertEqual(marker.exists(), case in ['success', 'installer-error'])
+                self.assertFalse(list(temp_dir.iterdir()))
 
     def test_download_failure_and_empty_never_execute(self):
         for failure in ['curl', 'empty']:

@@ -53,8 +53,9 @@
 <p class="muted">在电脑上执行。脚本会安装缺少的工具、按需设置命令路径；Node.js 低于 22 时升级到 LTS。账号登录、桌面应用和公司插件在后面完成。</p><details class="illustration"><summary>第一次用终端？查看示意</summary><figure><img src="img/terminal.svg" alt="终端窗口示意：命令、成功输出、找不到命令的报错" loading="lazy"><figcaption>终端长这样。"$"前面是提示符，不用输入；一行命令回车，它把结果打回来。</figcaption></figure></details>
 
 <div class="panel" data-os="mac">
-<h3>macOS</h3><div class="install-intro"><span class="install-badge">推荐 · 一次安装</span><h3>装好工具，再继续登录</h3><p>打开「终端」，复制下面整段，粘贴后回车。遇到电脑密码或安装确认，按提示操作。</p></div><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
+<h3>macOS</h3><div class="install-intro"><span class="install-badge">推荐 · 一次安装</span><h3>装好工具，再继续登录</h3><p>打开「终端」，复制下面整段，粘贴后回车。遇到电脑密码或安装确认，按提示操作。如果打开了 Apple 命令行工具安装窗口，完成安装后再运行这段命令。</p></div><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
 curl -fL &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.sh&#x27; -o &quot;$f&quot;
+test -s &quot;$f&quot; || { echo &quot;下载内容为空，请重试。&quot; &gt;&amp;2; exit 1; }
 bash &quot;$f&quot; --only all)</code></pre><a class="text-button" href="scripts/install-tools.sh" target="_blank" rel="noopener">查看脚本源码 ↗</a></div><details class="manual-install"><summary>脚本不能运行？按原步骤手动安装</summary>
 <ol>
 <li>打开"终端"：按 <kbd>⌘</kbd> + <kbd>空格</kbd>，输入 终端，回车。出现一个黑底或白底的窗口。</li>
@@ -70,6 +71,7 @@ bash &quot;$f&quot; --only all)</code></pre><a class="text-button" href="scripts
 <h3>Windows</h3><div class="install-intro"><span class="install-badge">推荐 · 一次安装</span><h3>装好工具，再继续登录</h3><p>打开普通 PowerShell，复制下面整段，粘贴后回车。遇到系统权限确认，按提示允许；无需提前安装 Node.js 或 Git。</p></div><div class="installer-command"><pre data-context="整段复制 · Windows PowerShell"><code>$f = Join-Path ([IO.Path]::GetTempPath()) (([guid]::NewGuid()).ToString() + &#x27;.ps1&#x27;)
 try {
   Invoke-WebRequest &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.ps1&#x27; -OutFile $f -UseBasicParsing -ErrorAction Stop
+  if ((Get-Item -LiteralPath $f -ErrorAction Stop).Length -eq 0) { throw &#x27;下载内容为空，请重试。&#x27; }
   powershell -NoProfile -ExecutionPolicy Bypass -File $f -Only all
   if ($LASTEXITCODE -ne 0) { throw &#x27;安装未完成，请看上方提示。&#x27; }
 } finally { Remove-Item -LiteralPath $f -ErrorAction SilentlyContinue }</code></pre><a class="text-button" href="scripts/install-tools.ps1" target="_blank" rel="noopener">查看脚本源码 ↗</a></div><details class="manual-install"><summary>脚本不能运行？按原步骤手动安装</summary>
@@ -101,6 +103,7 @@ try {
 <div class="panel" data-os="linux">
 <h3>Linux（Ubuntu / Debian）</h3><div class="install-intro"><span class="install-badge">推荐 · 一次安装</span><h3>装好工具，再继续登录</h3><p>支持 Ubuntu 22.04+ / Debian 12+，x64 / ARM64，使用 bash 或 zsh。先确认有 curl（没有时执行下方准备命令），再复制整段安装。</p></div><pre><code>sudo apt update &amp;&amp; sudo apt install -y curl ca-certificates</code></pre><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
 curl -fL &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.sh&#x27; -o &quot;$f&quot;
+test -s &quot;$f&quot; || { echo &quot;下载内容为空，请重试。&quot; &gt;&amp;2; exit 1; }
 bash &quot;$f&quot; --only all)</code></pre><a class="text-button" href="scripts/install-tools.sh" target="_blank" rel="noopener">查看脚本源码 ↗</a></div><details class="manual-install"><summary>脚本不能运行？按原步骤手动安装</summary>
 <ol>
 <li>打开终端，执行（会要你的密码，输入不显示是正常的）：
@@ -140,13 +143,16 @@ bash &quot;$f&quot; --only all)</code></pre><a class="text-button" href="scripts
 
 <div class="panel" data-os="mac"><h3>macOS 终端</h3><p>先检查：能打印版本号就直接去下面登录，无需重复安装。</p><pre><code>claude --version</code></pre><details><summary>还没装好？只安装 Claude Code</summary><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
 curl -fL &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.sh&#x27; -o &quot;$f&quot;
+test -s &quot;$f&quot; || { echo &quot;下载内容为空，请重试。&quot; &gt;&amp;2; exit 1; }
 bash &quot;$f&quot; --only claude)</code></pre><a class="text-button" href="scripts/install-tools.sh" target="_blank" rel="noopener">查看脚本源码 ↗</a></div><details><summary>官方手动安装命令</summary><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></details></details></div>
 <div class="panel" data-os="linux"><h3>Linux 终端</h3><p>先检查：能打印版本号就直接去下面登录，无需重复安装。</p><pre><code>claude --version</code></pre><details><summary>还没装好？只安装 Claude Code</summary><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
 curl -fL &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.sh&#x27; -o &quot;$f&quot;
+test -s &quot;$f&quot; || { echo &quot;下载内容为空，请重试。&quot; &gt;&amp;2; exit 1; }
 bash &quot;$f&quot; --only claude)</code></pre><a class="text-button" href="scripts/install-tools.sh" target="_blank" rel="noopener">查看脚本源码 ↗</a></div><details><summary>官方手动安装命令</summary><pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre></details></details></div>
 <div class="panel" data-os="win"><h3>Windows PowerShell（普通权限即可）</h3><p>先检查：能打印版本号就直接去下面登录，无需重复安装。</p><pre><code>claude --version</code></pre><details><summary>还没装好？只安装 Claude Code</summary><div class="installer-command"><pre data-context="整段复制 · Windows PowerShell"><code>$f = Join-Path ([IO.Path]::GetTempPath()) (([guid]::NewGuid()).ToString() + &#x27;.ps1&#x27;)
 try {
   Invoke-WebRequest &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.ps1&#x27; -OutFile $f -UseBasicParsing -ErrorAction Stop
+  if ((Get-Item -LiteralPath $f -ErrorAction Stop).Length -eq 0) { throw &#x27;下载内容为空，请重试。&#x27; }
   powershell -NoProfile -ExecutionPolicy Bypass -File $f -Only claude
   if ($LASTEXITCODE -ne 0) { throw &#x27;安装未完成，请看上方提示。&#x27; }
 } finally { Remove-Item -LiteralPath $f -ErrorAction SilentlyContinue }</code></pre><a class="text-button" href="scripts/install-tools.ps1" target="_blank" rel="noopener">查看脚本源码 ↗</a></div><details><summary>官方手动安装命令</summary><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></details></details></div>
@@ -167,13 +173,16 @@ try {
 <div class="tip"><b>先准备自己的 ChatGPT 账号。</b><p>打开 <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a> 注册或登录，确认账号有 Codex 使用权限。需要订阅或升级时，先和引路人确认方案与报销要求；已有可用账号就直接使用。</p></div>
 <h3>1. 检查 Codex CLI</h3><p>运行过前面的工具脚本？先检查版本，能打印版本号就直接登录。</p><pre><code>codex --version</code></pre><div class="os-required tip">尚未安装时，先在上方选择电脑系统。</div><div class="panel" data-os="mac"><details><summary>还没装好？只安装 Codex CLI 和必要依赖</summary><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
 curl -fL &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.sh&#x27; -o &quot;$f&quot;
+test -s &quot;$f&quot; || { echo &quot;下载内容为空，请重试。&quot; &gt;&amp;2; exit 1; }
 bash &quot;$f&quot; --only codex)</code></pre><a class="text-button" href="scripts/install-tools.sh" target="_blank" rel="noopener">查看脚本源码 ↗</a></div></details></div><div class="panel" data-os="win"><details><summary>还没装好？只安装 Codex CLI 和必要依赖</summary><div class="installer-command"><pre data-context="整段复制 · Windows PowerShell"><code>$f = Join-Path ([IO.Path]::GetTempPath()) (([guid]::NewGuid()).ToString() + &#x27;.ps1&#x27;)
 try {
   Invoke-WebRequest &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.ps1&#x27; -OutFile $f -UseBasicParsing -ErrorAction Stop
+  if ((Get-Item -LiteralPath $f -ErrorAction Stop).Length -eq 0) { throw &#x27;下载内容为空，请重试。&#x27; }
   powershell -NoProfile -ExecutionPolicy Bypass -File $f -Only codex
   if ($LASTEXITCODE -ne 0) { throw &#x27;安装未完成，请看上方提示。&#x27; }
 } finally { Remove-Item -LiteralPath $f -ErrorAction SilentlyContinue }</code></pre><a class="text-button" href="scripts/install-tools.ps1" target="_blank" rel="noopener">查看脚本源码 ↗</a></div></details></div><div class="panel" data-os="linux"><details><summary>还没装好？只安装 Codex CLI 和必要依赖</summary><div class="installer-command"><pre data-context="整段复制 · 电脑终端"><code>(set -e; f=&quot;$(mktemp)&quot;; trap &#x27;rm -f &quot;$f&quot;&#x27; EXIT
 curl -fL &#x27;https://ali-matrix-technologies.github.io/start/scripts/install-tools.sh&#x27; -o &quot;$f&quot;
+test -s &quot;$f&quot; || { echo &quot;下载内容为空，请重试。&quot; &gt;&amp;2; exit 1; }
 bash &quot;$f&quot; --only codex)</code></pre><a class="text-button" href="scripts/install-tools.sh" target="_blank" rel="noopener">查看脚本源码 ↗</a></div></details></div><details><summary>官方手动安装命令</summary><p>先完成 <a href="#s2">基础工具安装</a>，然后执行：</p><pre><code>npm install -g @openai/codex</code></pre></details>
 <h3>2. 用 ChatGPT 账号登录</h3><pre><code>codex login</code></pre><p>在浏览器按提示登录自己的 ChatGPT 账号并授权，完成后回到终端。使用个人账号的同事选择 ChatGPT 登录即可。</p><div class="check"><b>完成标准</b><pre><code>codex login status</code></pre><p>显示已登录，且 <code>codex --version</code> 能打印版本号。</p></div>
 <details><summary>安装失败、没有权限或找不到 codex？</summary><p>先重开终端。Windows 若 npm.ps1 被脚本策略阻止，把安装命令中的 <code>npm</code> 改成 <code>npm.cmd</code>。macOS / Linux 若 npm 提示 EACCES，可以改用 <a href="https://developers.openai.com/codex/cli/" target="_blank" rel="noopener">官方独立安装方式 ↗</a>；不要直接给 npm 安装命令加 sudo。</p><p>仍然失败，把安装报错和系统信息发给引路人。</p></details>

@@ -106,6 +106,12 @@ install_git() {
   else apt_ready; sudo apt-get install -y git; fi
 }
 install_node() {
+  if [[ "$install_os" == Darwin ]] && ! xcode-select -p >/dev/null 2>&1; then
+    say 'Node 安装需要 Apple Command Line Tools，正在打开系统安装提示。'
+    xcode-select --install || { fail '无法启动 Command Line Tools 安装；请运行 xcode-select --install，安装完成后重跑。'; return 1; }
+    fail '请在系统窗口完成 Command Line Tools 安装，再运行本脚本继续；当前尚未安装完成。'
+    return 1
+  fi
   command -v curl >/dev/null || { apt_ready; sudo apt-get install -y curl ca-certificates; }
   export NVM_DIR="${NVM_DIR:-${XDG_CONFIG_HOME:-$install_home}/$([[ -n "${XDG_CONFIG_HOME:-}" ]] && printf nvm || printf .nvm)}"
   if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then

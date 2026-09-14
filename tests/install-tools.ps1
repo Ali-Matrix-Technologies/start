@@ -96,11 +96,11 @@ $script:BadNpm = $true
 Expect-Failure { Start-ToolsInstall 'codex' $true } 'Check failed'
 
 # Native nonzero (including restart), false success, and npm errors stop delivery.
-foreach ($failure in @('winget','restart','no-binary','npm')) {
+foreach ($failureCase in @('winget','restart','no-binary','npm')) {
     Reset-Mocks
-    $script:Failure = $failure
+    $script:Failure = $failureCase
     Expect-Failure { Start-ToolsInstall 'all' $false } 'returned|verification|installation failed'
-    Assert-That (-not $script:Have['codex']) "Failure $failure did not stop installation"
+    Assert-That (-not $script:Have['codex']) "Failure $failureCase did not stop installation"
 }
 Expect-Failure { Start-ToolsInstall 'wrong' $true } 'Only must'
 
@@ -113,4 +113,33 @@ function Get-Command {
     Microsoft.PowerShell.Core\Get-Command $Name -ErrorAction SilentlyContinue
 }
 Expect-Failure { Install-WingetPackage 'Git.Git' } 'WinGet is missing'
+
+# Execute the actual copied page blocks with mocked network/child PowerShell.
+$page = Get-Content (Join-Path $PSScriptRoot '../index.html') -Raw -Encoding UTF8
+$blocks = [regex]::Matches($page, '(?s)<code>(\$f = Join-Path.*?)</code>')
+Assert-That ($blocks.Count -eq 3) 'Expected three Windows installer copy blocks'
+function Invoke-WebRequest {
+    param($Uri, $OutFile, [switch]$UseBasicParsing, $ErrorAction)
+    $script:DownloadPath = $OutFile
+    [IO.File]::WriteAllText($OutFile, $(if ($script:WrapperCase -eq 'empty') { '' } else { 'mock script' }))
+    if ($script:WrapperCase -eq 'download-error') { throw 'mock download failed' }
+}
+function powershell {
+    $script:Executed = $true
+    $global:LASTEXITCODE = if ($script:WrapperCase -eq 'installer-error') { 23 } else { 0 }
+}
+foreach ($block in $blocks) {
+    $action = [scriptblock]::Create([Net.WebUtility]::HtmlDecode($block.Groups[1].Value))
+    foreach ($wrapperTestCase in @('empty','download-error','success','installer-error')) {
+        $script:WrapperCase = $wrapperTestCase
+        $script:Executed = $false
+        $script:DownloadPath = $null
+        $caught = $false
+        try { & $action } catch { $caught = $true }
+        Assert-That ($caught -eq ($wrapperTestCase -ne 'success')) "Wrong wrapper outcome: $wrapperTestCase"
+        Assert-That ($script:Executed -eq ($wrapperTestCase -in @('success','installer-error'))) 'Unsafe script execution'
+        Assert-That ($script:DownloadPath -and -not (Test-Path -LiteralPath $script:DownloadPath)) 'Temporary download not cleaned'
+    }
+}
 Write-Host 'PASS: first install, repeat, check, dependencies, old Node, npm, failures, restart, missing winget'
+$global:LASTEXITCODE = 0
