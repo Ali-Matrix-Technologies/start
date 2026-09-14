@@ -54,7 +54,7 @@ for href in page.links + page.assets:
 private = re.compile(r'\{\{|t\.me/\+|workers\.dev|sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|BEGIN [A-Z ]*PRIVATE KEY')
 handle = re.compile(r'@[A-Za-z0-9_]{4,}')
 for path in sorted(ROOT.rglob('*')):
-    if not path.is_file() or path.suffix not in ('.html', '.md', '.js', '.css', '.svg'):
+    if not path.is_file() or path.suffix not in ('.html', '.md', '.js', '.css', '.svg', '.sh', '.ps1'):
         continue
     if any(part in ('.git', 'node_modules') for part in path.relative_to(ROOT).parts):
         continue
